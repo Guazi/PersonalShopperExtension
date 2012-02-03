@@ -1,0 +1,26 @@
+{
+  "name": "Personal Shopper",
+  "version": "1.0",
+  "description": "Let us help you shop.",
+  "background_page" : "AddFromListBackground.htm",
+  "content_scripts" : [
+    {
+      "matches" : [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js" : ["ElementFinder.js", "ProductPageDetector.js", "xml2json.js", "ProductService.js", "AddToListBookmarklet.js", "ProductPageController.js", "ContentScript.js"],
+      "run_at" : "document_idle",
+      "all_frames" : false
+    }
+  ],
+  "permissions": [
+    "http://*/",
+    "https://*/"
+  ],
+  "browser_action": {
+      "default_title": "Review your list.",
+      "default_icon": "cart.png",
+      "popup": "reviewcart.html"
+  }
+}
