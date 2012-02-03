@@ -9,7 +9,13 @@
         "http://*/*",
         "https://*/*"
       ],
-      "js" : ["ElementFinder.js", "ProductPageDetector.js", "xml2json.js", "ProductService.js", "AddToListBookmarklet.js", "ProductPageController.js", "ContentScript.js"],
+      "js" : ["ContentScripts/ElementFinder.js", 
+      "ContentScripts/ProductPageDetector.js", 
+      "ContentScripts/xml2json.js", 
+      "ContentScripts/ProductService.js", 
+      "ContentScripts/AddToListBookmarklet.js", 
+      "ContentScripts/ProductPageController.js", 
+      "ContentScripts/ContentScript.js"],
       "run_at" : "document_idle",
       "all_frames" : false
     }
