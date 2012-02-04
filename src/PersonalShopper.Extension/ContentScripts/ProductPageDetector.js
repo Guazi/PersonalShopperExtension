@@ -9,10 +9,10 @@ PERSONALSHOPPER.ADDTOLIST.productPageDetector = (function (elementFinder) {
     // constants
     _addButtonRegex = /add[ -_]{0,1}((to))[ -_]{0,1}(cart|bag|((wish[ -_]{0,1}){0,1}list))/i;
     return {
-        getAddToCartMatches: function (document) {
-            var textMatches = elementFinder.findTextNodesWithRegex(document, _addButtonRegex);
+        getAddToCartMatches: function (view) {
+            var textMatches = elementFinder.findTextNodesWithRegex(view, _addButtonRegex);
             //return textMatches;
-            var elementMatches = elementFinder.findDeepestElementsWithRegex(document, _addButtonRegex);
+            var elementMatches = elementFinder.findDeepestElementsWithRegex(view, _addButtonRegex);
             return {
             	getTextMatches : function() { return textMatches; },
             	getElementMatches : function() { return elementMatches; },
@@ -22,12 +22,15 @@ PERSONALSHOPPER.ADDTOLIST.productPageDetector = (function (elementFinder) {
         		}
            	}
         },
-        isProductPage: function(document){
-        	var firstMatch = elementFinder.findFirstElementWithRegex(document, _addButtonRegex, true);
+        isProductPage: function(view){
+        	var firstMatch = elementFinder.findFirstElementWithRegex(view, _addButtonRegex, true);
         	if(firstMatch)
         		return true;
         	else
         		return false;
+        },
+        getAddToCartElements : function(view){
+        	return elementFinder.findDeepestElementsWithRegex(view, _addButtonRegex, true);
         },
         getProductName: function(document){
         	return document.title;

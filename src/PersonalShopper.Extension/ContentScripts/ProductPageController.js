@@ -22,18 +22,18 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
 	Constr.prototype = {
 		constructor : PERSONALSHOPPER.APPLICATION.productPageMediator,
 		findButtons : function(){
-	        var addToCartMatches = productPageDetector.getAddToCartMatches(document);
+	        var addToCartMatches = productPageDetector.getAddToCartMatches(document.body);
 	        if(addToCartMatches.hasMatch()){
 	        	writeFoundMatches(addToCartMatches.getTextMatches());
 	        	writeFoundMatches(addToCartMatches.getElementMatches());
 	       	}
 		},
 		detectAndNotifyIfProductPage : function(){
-			var isProductPage = productPageDetector.isProductPage(document);
+			var isProductPage = productPageDetector.isProductPage(document.body);
 			log('Is Product Page?');
 			log(isProductPage);				
 			if(isProductPage){
-				var productTitle = productPageDetector.getProductName(document);
+				var productTitle = productPageDetector.getProductName(document.body);
 				var self = this;
 				var origFn = this.openAddToListWindow;
 				var prompter = new addToListPrompter(document.body, productTitle);

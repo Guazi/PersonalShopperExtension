@@ -15,7 +15,7 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
     // constants
     var config = config,
     maxTreeWalkerSearch = 2000,
-    createWalkerIterator = function(document, targetNode, whatToShow){
+    createWalkerIterator = function(targetNode, whatToShow){
     	var index = 0,
     	walker = document.createTreeWalker(
                 targetNode,
@@ -104,8 +104,8 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
 		}
 	};
     return {
-    	findFirstElementWithRegex: function(document, regex, excludeScriptsInResults){
-    		var walkerIterator = createWalkerIterator(document, document.body, NodeFilter.SHOW_ELEMENT);
+    	findFirstElementWithRegex: function(view, regex, excludeScriptsInResults){
+    		var walkerIterator = createWalkerIterator(view, NodeFilter.SHOW_ELEMENT);
     		var foundElements = getDeepestMatches(regex, walkerIterator, excludeScriptsInResults);
     		if(foundElements.length > 0){
     			log('found a match.  it is:');
@@ -115,9 +115,9 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
 			else
     			return null;
     	},
-        findTextNodesWithRegex: function (document, regex) {
+        findTextNodesWithRegex: function (view, regex) {
         	
-        	var walkerIterator = createWalkerIterator(document, document.body, NodeFilter.SHOW_TEXT);
+        	var walkerIterator = createWalkerIterator(view, NodeFilter.SHOW_TEXT);
 
             var node;
             var foundElements = [];
@@ -133,8 +133,8 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
 
             return foundElements;
         },
-        findDeepestElementsWithRegex: function(document, regex){
-        	var walkerIterator = createWalkerIterator(document, document.body, NodeFilter.SHOW_ELEMENT);
+        findDeepestElementsWithRegex: function(view, regex){
+        	var walkerIterator = createWalkerIterator(view, NodeFilter.SHOW_ELEMENT);
             foundElements = getDeepestMatches(regex, walkerIterator);
             
             return foundElements;    	
