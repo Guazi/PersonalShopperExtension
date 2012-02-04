@@ -163,6 +163,22 @@ PERSONALSHOPPER.BUSINESSRULES.ProductFilter = (function(){
 			closestProduct = products[0];
 		return closestProduct;
 	},
+	findFirstProductInTerm = function(searchTerm, products){
+		var productLength = products.length;
+		if(productLength <= 0)
+			return;
+		else {
+			var productMatch = null;
+			for(var i = 0, max = productLength; i < max; i++){
+				var product = products[i];
+				if(isMatch(searchTerm, product.name)){
+					productMatch = product;
+					break;
+				}
+			}
+			return productMatch;
+		}
+	},
 	productIsInTerms = function(searchTerms, product){
 		var isInTerms = false;
 		for(var i = 0, max = searchTerms.length; i < max; i++){
@@ -174,55 +190,76 @@ PERSONALSHOPPER.BUSINESSRULES.ProductFilter = (function(){
 		return isInTerms;
 	},
 	isMatch = function(container, toMatch){
-		var containerStripped = container.replace(/ /g, '');
-		var toMatchStripped = toMatch.replace(/ /g, '');
+		var containerStripped = container.replace(/ /g, '').toLowerCase();
+		var toMatchStripped = toMatch.replace(/ /g, '').toLowerCase();
 		console.log('seeing if ' + containerStripped + ' is match with ' + toMatchStripped);
-		var regExp = new RegExp(toMatchStripped + '/i');
+		var regExp = new RegExp(containerStripped);
 		var isMatched = regExp.test(toMatchStripped);
 		console.log('is matched? ' + isMatched);
 		return isMatched;		
 	};
 	return {
-		findFirstProductInTerms : findFirstProductInTerms
+		findFirstProductInTerms : findFirstProductInTerms,
+		findFirstProductInTerm : findFirstProductInTerm,
+		isMatch : isMatch
 	};
 })();
 
-PERSONALSHOPPER.SERVICES.ProductSearch = (function(productRepository){
+PERSONALSHOPPER.SERVICES.ProductSearch = (function(productRepository, productFilter){
 	var extractSearchTerms = function(productName){
 		var searchTerms = [productName];
-		var secondTerms = productName.split('-');
+		var secondTerms = productName.split(' - ');
 		for(var i = secondTerms.length - 1; i >= 0; i--){
 			searchTerms.push(secondTerms[i]);
 		}
 		return searchTerms;
 	},
-	searchForProduct = function(searchTerms, currentTermIndex, productSearchResultProcessor, currentResultsRef){
+	searchForProductInftoRef = function(searchTerms, currentTermIndex, productSearchResultProcessor, currentResultsRef){
 		var searchTerm = searchTerms[currentTermIndex];
 		productRepository.findProductsWithName(searchTerm, function(productSearchResults){
 			var actualCurrentResultRef = currentResultsRef || [];
-			processSearchResult(productSearchResults, searchTerms, currentTermIndex, productSearchResultProcessor, actualCurrentResultRef);
+			processSearchResultIntoRef(productSearchResults, searchTerms, currentTermIndex, productSearchResultProcessor, actualCurrentResultRef);
 		});		
 	},
-	processSearchResult = function(productSearchResults, searchTerms, currentTermIndex, productSearchResultProcessor, currentResultsRef){
+	processSearchResultIntoRef = function(productSearchResults, searchTerms, currentTermIndex, productSearchResultProcessor, currentResultsRef){
 		currentResultsRef.push(productSearchResults);			
 		if(currentTermIndex >= searchTerms.length - 1)
 			// end case - at last term - call result processor
 			productSearchResultProcessor.apply(null, [searchTerms, currentResultsRef]);
 		else
 			// recursive case, get next product results
-			searchForProduct(searchTerms, currentTermIndex + 1, productSearchResultProcessor, currentResultsRef);
+			searchForProductIntoRef(searchTerms, currentTermIndex + 1, productSearchResultProcessor, currentResultsRef);
+	},
+	searchForProduct = function(searchTerms, currentTermIndex, productSearchResultProcessor){
+		var searchTerm = searchTerms[currentTermIndex];
+		productRepository.findProductsWithName(searchTerm, function(productSearchResults){
+			processSearchResult(productSearchResults, searchTerm, searchTerms, currentTermIndex, productSearchResultProcessor);
+		});		
+	},
+	processSearchResult = function(productSearchResults, currentSearchTerm, searchTerms, currentTermIndex, productSearchResultProcessor){
+		var firstProductInTerm = productFilter.findFirstProductInTerm(currentSearchTerm, productSearchResults);
+		if(firstProductInTerm)
+			// end case - call result processor			
+			productSearchResultProcessor.call(null, firstProductInTerm);
+		 else if(currentTermIndex >= searchTerms.length - 1)
+			// end case - at last term - call result processor with no result
+			productSearchResultProcessor.call();
+		else
+			// recursive case, get next product results
+			searchForProduct(searchTerms, currentTermIndex + 1, productSearchResultProcessor);
 	};
 	return {
-		findAllProductWithName : function(productName, productSearchResultProcessor){
+		findFirstProductWithName : function(productName, productSearchResultProcessor){
 			var searchTerms = extractSearchTerms(productName);
 			searchForProduct(searchTerms, 0, productSearchResultProcessor);
 		},
 		findAllProductsInSearchTerm : function(searchTerm, productSearchResultProcessor){
-			productRepository.findProductsWithName(searchTerm, productSearchResultProcessor);
+			var searchTerms = extractSearchTerms(productName);
+			searchForProductInftoRef(searchTerms, 0, productSearchResultProcessor);
 		},
 		extractSearchTerms : extractSearchTerms
 	};
-})(PERSONALSHOPPER.REPOSITORIES.ShopStyleProductRepository);
+})(PERSONALSHOPPER.REPOSITORIES.ShopStyleProductRepository, PERSONALSHOPPER.BUSINESSRULES.ProductFilter);
 
 PERSONALSHOPPER.SERVICES.ProductRetrieval = (function(productSearch, productFilter){
 	var findFirstMatchUsingSearchTerms = function(searchTerms, currentIndex, productRetrievalResultProcessor){
@@ -241,12 +278,15 @@ PERSONALSHOPPER.SERVICES.ProductRetrieval = (function(productSearch, productFilt
 			});
 		}
 		
+	},
+	findFirstProduct = function(productName, productRetrievalResultProcessor){
+		productSearch.findFirstProductWithName(productName, function(product){
+			productRetrievalResultProcessor.call(null, product);
+		});
 	};
 	return {
 		findProductInfo : function(productName, productRetrievalResultProcessor){
-			var searchTerms = productSearch.extractSearchTerms(productName);
-			var currentIndex = 0;
-			findFirstMatchUsingSearchTerms(searchTerms, 0, productRetrievalResultProcessor);
+			findFirstProduct(productName, productRetrievalResultProcessor);
 		}
 	};
 })(PERSONALSHOPPER.SERVICES.ProductSearch, PERSONALSHOPPER.BUSINESSRULES.ProductFilter);
