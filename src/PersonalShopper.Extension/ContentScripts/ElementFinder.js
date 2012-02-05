@@ -74,28 +74,8 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
         }
 
         return foundElements;
-    },
-   	findFirstTextNodeBySearch = function(view, searchTerms){
-   		var walkerIterator = createWalkerIterator(view, NodeFilter.SHOW_TEXT);
-
-        var node;
-        var found;
-
-		var node;
-        while (textNode = walkerIterator.nextNode()) {
-        	var nodeText = textNode.nodeValue;
-        	if(nodeText && nodeText.length > 3){
-	            var doesMatch = doesTextMatchInAny(searchTerms, nodeText);
-	            if (doesMatch) {
-	                found = new foundElement(textNode);
-	                break;
-	            }
-           	}
-        }
-
-        return found;
-   	},   	
-   	findNearestTextNodeToElementBySearch = function(element, searchTerms, currentDistance, maxDistance){
+    },  	
+   	findNearestToElementThatMatchesCondition = function(element, currentDistance, maxDistance, getElementWithConditionFunction){
    		if(currentDistance >= maxDistance)
    			// end case
    			return;
@@ -108,13 +88,13 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
 			else {
 				debug.log('searching in');
 				debug.log(parentNode);
-				var textNodeMatch = findFirstTextNodeBySearch(parentNode, searchTerms);
-				if(textNodeMatch)
+				var elementWithCondition = getElementWithConditionFunction(parentNode);
+				if(elementWithCondition)
 					// end case - match found
-					return textNodeMatch;	
+					return elementWithCondition;	
 				else
 					// recursive case - find on parent
-					return findNearestTextNodeToElementBySearch(parentNode, searchTerms, currentDistance + 1, maxDistance);
+					return findNearestToElementThatMatchesCondition(parentNode, currentDistance + 1, maxDistance, getElementWithConditionFunction);
 			}
 		}
    	},
@@ -127,7 +107,7 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
     	try{
     		regexMatches = textToMatch.match(regex);	
     	}catch(e){
-    		// if fails because cannot parse regex, return false, otherwise, let bubble out
+    		// if fails because cannot parse regex, return false, otherwise, let error bubble out
     		if(e.type == 'malformed_regexp'){
     			return false;
     		}
@@ -135,16 +115,6 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
     			throw e;
     	}
     	return regexMatches && regexMatches.length > 0;
-    },
-    doesTextMatchInAny = function(searchTerms, textToMatch){
-    	var doesMatch = false;
-    	for(var i = 0, max = searchTerms.length; i < max; i++){
-    		doesMatch = doesTextMatch(textToMatch, searchTerms[i]);
-    		if(doesMatch){
-    			break;
-    		}
-    	}
-    	return doesMatch;
     },
     getDeepestMatches = function(regex, walkerIterator, excludeScriptsInResults){
 		var firstMatch = findFirstMatch(regex, walkerIterator);
@@ -207,16 +177,16 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
             
             return foundElements;    	
         },
-        findNearestTextNodeToElementsBySearchTerms: function(elements, searchTerms, maxDistance){
-        	var nearestTextNode = null;
+        findNearestToElementsThatMeetsCondition: function(elements, maxDistance, getElementWithConditionFunction){
+        	var nearestElementWithCondition = null;
         	for(var i = 0, max = elements.length; i < max; i++){
-        		var textNodeNearestElement = findNearestTextNodeToElementBySearch(elements[i].getNode(), searchTerms, 0, maxDistance);
-        		if(textNodeNearestElement){
-        			nearestTextNode = textNodeNearestElement;
+        		var elementWithCondition = findNearestToElementThatMatchesCondition(elements[i].getNode(), 0, maxDistance, getElementWithConditionFunction);
+        		if(elementWithCondition){
+        			nearestElementWithCondition = elementWithCondition;
         			break;
         		}
         	}
-        	return nearestTextNode;
+        	return nearestElementWithCondition;
         },
         removeFoundElementsByTagName : function(foundElements, tagNamesToExclude){
         	var filteredResult = [];
@@ -235,6 +205,27 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
         	}
         	return filteredResult;
         },
+        findFirstTextWithCondition : function(view, condition){
+	   		var walkerIterator = createWalkerIterator(view, NodeFilter.SHOW_TEXT);
+	
+	        var node;
+	        var found;
+	
+			var node;
+	        while (textNode = walkerIterator.nextNode()) {
+	        	var nodeText = textNode.nodeValue;
+	        	if(nodeText && nodeText.length > 3){
+	        		var meetsCondition = condition(nodeText);
+		            if (meetsCondition) {
+		                found = new foundElement(textNode);
+		                break;
+		            }
+	           	}
+	        }
+	
+	        return found;
+	   	}, 
+	   	doesTextMatch : doesTextMatch
     }
 
 })({debug:true}, PERSONALSHOPPER.CONTENTSCRIPTS.foundElement);

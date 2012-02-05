@@ -63,13 +63,28 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (fu
     	var addToButtonMatches = productRetrievalUtilities.getAddToCartElements(view);
     	var filteredResults = elementFinder.removeFoundElementsByTagName(addToButtonMatches, ['script']);
     	var searchTerms = productRetrievalUtilities.extractSearchTerms(pageTitle);
-    	var textElementMatchWithTitle = elementFinder.findNearestTextNodeToElementsBySearchTerms(filteredResults, searchTerms, 10);
+    	var textElementMatchWithTitle = elementFinder.findNearestToElementsThatMeetsCondition(filteredResults, 10, function(element){
+    		return findFirstTextElementThatMatchesSearchTerms(element, searchTerms);
+    	});
     	if(textElementMatchWithTitle){
     		debug.log('found text node with match.  Parent node is:');
     		debug.log(textElementMatchWithTitle.getNode().parentNode);
     		return textElementMatchWithTitle.getNode();
     	}
-    }
+   },
+   findFirstTextElementThatMatchesSearchTerms = function(element, searchTerms){
+   		var condition = function(nodeText){
+   			var doesMatch = false;
+	    	for(var i = 0, max = searchTerms.length; i < max; i++){
+	    		doesMatch = elementFinder.doesTextMatch(nodeText, searchTerms[i]);
+	    		if(doesMatch){
+	    			break;
+	    		}
+	    	}
+	    	return doesMatch;
+   		}
+   		return elementFinder.findFirstTextWithCondition(element, condition);
+   };
 	return {
 		getProductInfo : function(){
 			var view = document.body;
