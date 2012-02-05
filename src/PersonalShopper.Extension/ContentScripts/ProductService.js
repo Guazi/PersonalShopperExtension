@@ -1,29 +1,10 @@
 var PERSONALSHOPPER = PERSONALSHOPPER || {};
 PERSONALSHOPPER.SERVICES = PERSONALSHOPPER.SERVICES || {};
 PERSONALSHOPPER.REPOSITORIES = PERSONALSHOPPER.REPOSITORIES || {};
-PERSONALSHOPPER.ENTITIES = PERSONALSHOPPER.ENTITIES || {};
 PERSONALSHOPPER.BUSINESSRULES = PERSONALSHOPPER.BUSINESSRULES || {};
 // global dependency
 var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
-PERSONALSHOPPER.ENTITIES.Product = function(id, name, description, price, images, sizes, colors){
-	this.id = id,
-	this.name = name,
-	this.description = description,
-	this.price = price,
-	this.images = images,
-	this.sizes = sizes,
-	this.colors = colors;
-};
-PERSONALSHOPPER.ENTITIES.Image = function(src){
-	this.src = src;
-};
-PERSONALSHOPPER.ENTITIES.Size = function(name){
-	this.name = name;
-};
-PERSONALSHOPPER.ENTITIES.Color = function(name){
-	this.name = name;
-};
 
 PERSONALSHOPPER.REPOSITORIES.ShopStyleProductRepository = (function(xml2json, entities){
 	var findProductWithNameUrl = 'http://api.shopstyle.com/action/apiSearch?pid=uid9600-812360-93&min=0&count=10',

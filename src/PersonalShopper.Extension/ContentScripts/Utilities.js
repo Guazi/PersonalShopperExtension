@@ -10,3 +10,11 @@ PERSONALSHOPPER.UTILITIES.debug = (function(config){
 		}
 	}	
 })({debug:true});
+
+PERSONALSHOPPER.UTILITIES.inheritance = (function(config){
+	return {
+		inheritPrototype : function(child, parent){
+			child.prototype = new parent();	
+		}
+	}
+})();

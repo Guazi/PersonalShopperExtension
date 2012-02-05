@@ -43,7 +43,7 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
 		openAddToListWindow : function(addToListPrompter, productTitle){
 			debug.log(productTitle);
 			addToListPrompter.closePromptToAddToList();
-			scrapedProductInfo = productPageDetector.scrapeForProductInfo(document.body);
+			scrapedProductInfo = productPageDetector.getProductInfo();
 			var listWindow = new addToListWindow(document.body);
 			listWindow.openAndLoadProduct(scrapedProductInfo);
 		}
