@@ -119,7 +119,7 @@ PERSONALSHOPPER.BOOKMARKLETS.addToListWindow = (function(utilities, productRetri
 	};
 	Constr.prototype = {
 		constructor : PERSONALSHOPPER.BOOKMARKLETS.addToListWindow,
-		openAndLoad : function(productTitle){	
+		openAndLoadProduct : function(product){	
 			this.bookmarkletWrapper = utilities.createViewPortPoisitionedElement('div', '5px', '5px');
 			utilities.appendStyleAttributes(this.bookmarkletWrapper, {
 				'background-color':'white',
@@ -128,16 +128,10 @@ PERSONALSHOPPER.BOOKMARKLETS.addToListWindow = (function(utilities, productRetri
 				'text-align' : 'left'
 				//height: '400px'
 			});
-			this.loadingNode = document.createTextNode('loading...');
-			this.bookmarkletWrapper.appendChild(this.loadingNode);
 			this.documentBody.appendChild(this.bookmarkletWrapper);
-			var self = this;
-			productRetrieval.findProductInfo(productTitle, function(product){ 
-				self.displayProduct(product);
-			});
+			this.displayProduct(product);
 		},
 		displayProduct : function(product){
-			this.bookmarkletWrapper.removeChild(this.loadingNode);
 			if(!product)
 				setTitle('No product found', this.bookmarkletWrapper);
 			else{

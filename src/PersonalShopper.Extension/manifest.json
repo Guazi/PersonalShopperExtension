@@ -9,10 +9,10 @@
         "http://*/*",
         "https://*/*"
       ],
-      "js" : ["ContentScripts/ElementFinder.js", 
-      "ContentScripts/ProductPageDetector.js", 
+      "js" : ["ContentScripts/ElementFinder.js",
       "ContentScripts/xml2json.js", 
-      "ContentScripts/ProductService.js", 
+      "ContentScripts/ProductService.js",  
+      "ContentScripts/ProductPageDetector.js", 
       "ContentScripts/AddToListBookmarklet.js", 
       "ContentScripts/ProductPageController.js", 
       "ContentScripts/ContentScript.js"],

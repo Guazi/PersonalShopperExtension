@@ -56,10 +56,93 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
     	//console.log("End logging matches.");
 		return firstMatch;
    	},
+   	findTextNodesWithRegex = function (view, regex) {  	
+    	var walkerIterator = createWalkerIterator(view, NodeFilter.SHOW_TEXT);
+
+        var node;
+        var foundElements = [];
+
+		var node;
+        while (node = walkerIterator.nextNode()) {
+            var regexMatches = isMatch(node, regex);
+            if (regexMatches && regexMatches.length > 0) {
+                var found = new foundElement(node, regexMatches);
+                foundElements.push(found);
+            }
+        }
+
+        return foundElements;
+    },
+   	findFirstTextNodeBySearch = function(view, searchTerms){
+   		var walkerIterator = createWalkerIterator(view, NodeFilter.SHOW_TEXT);
+
+        var node;
+        var found;
+
+		var node;
+        while (textNode = walkerIterator.nextNode()) {
+        	var nodeText = textNode.nodeValue;
+        	if(nodeText && nodeText.length > 3){
+	            var doesMatch = doesTextMatchInAny(searchTerms, nodeText);
+	            if (doesMatch) {
+	                found = new foundElement(textNode);
+	                break;
+	            }
+           	}
+        }
+
+        return found;
+   	},   	
+   	findNearestTextNodeToElementBySearch = function(element, searchTerms, currentDistance, maxDistance){
+   		if(currentDistance >= maxDistance)
+   			// end case
+   			return;
+		else
+		{
+			var parentNode = element.parentNode;
+			if(!parentNode)
+				// end case - no more parents
+				return;
+			else {
+				console.log('searching in');
+				console.log(parentNode);
+				var textNodeMatch = findFirstTextNodeBySearch(parentNode, searchTerms);
+				if(textNodeMatch)
+					// end case - match found
+					return textNodeMatch;	
+				else
+					// recursive case - find on parent
+					return findNearestTextNodeToElementBySearch(parentNode, searchTerms, currentDistance + 1, maxDistance);
+			}
+		}
+   	},
     isMatch = function(node, regex){
     	var textToMatch = node.nodeType == 3? node.nodeValue : node.outerHTML;
-    	var regexMatches = textToMatch.match(regex);
+    	return doesTextMatch(textToMatch, regex);
+    },
+    doesTextMatch = function(textToMatch, regex){
+    	var regexMatches;
+    	try{
+    		regexMatches = textToMatch.match(regex);	
+    	}catch(e){
+    		// if fails because cannot parse regex, return false, otherwise, let bubble out
+    		if(e.type == 'malformed_regexp'){
+    			return false;
+    		}
+    		else
+    			throw e;
+    	}
     	return regexMatches && regexMatches.length > 0;
+    },
+    doesTextMatchInAny = function(searchTerms, textToMatch){
+    	var doesMatch = false;
+    	for(var i = 0, max = searchTerms.length; i < max; i++){
+    		doesMatch = doesTextMatch(textToMatch, searchTerms[i]);
+    		if(doesMatch){
+    			break;
+    		}
+    	}
+    	return doesMatch;
     },
     getDeepestMatches = function(regex, walkerIterator, excludeScriptsInResults){
 		var firstMatch = findFirstMatch(regex, walkerIterator);
@@ -97,7 +180,7 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
 	},
 	shouldAddElement = function(node, excludeScriptsInResults){
 		return !(excludeScriptsInResults && node.tagName == 'SCRIPT');
-	}
+	},
 	log = function(toLog){
 		if(config.debug){
 			console.log(toLog);
@@ -115,29 +198,40 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
 			else
     			return null;
     	},
-        findTextNodesWithRegex: function (view, regex) {
-        	
-        	var walkerIterator = createWalkerIterator(view, NodeFilter.SHOW_TEXT);
-
-            var node;
-            var foundElements = [];
-
-			var node;
-            while (node = walkerIterator.nextNode()) {
-                var regexMatches = isMatch(node, regex);
-                if (regexMatches && regexMatches.length > 0) {
-                    var found = new foundElement(node, regexMatches);
-                    foundElements.push(found);
-                }
-            }
-
-            return foundElements;
-        },
+        findTextNodesWithRegex : findTextNodesWithRegex,        
         findDeepestElementsWithRegex: function(view, regex){
         	var walkerIterator = createWalkerIterator(view, NodeFilter.SHOW_ELEMENT);
             foundElements = getDeepestMatches(regex, walkerIterator);
             
             return foundElements;    	
+        },
+        findNearestTextNodeToElementsBySearchTerms: function(elements, searchTerms, maxDistance){
+        	var nearestTextNode = null;
+        	for(var i = 0, max = elements.length; i < max; i++){
+        		var textNodeNearestElement = findNearestTextNodeToElementBySearch(elements[i].getNode(), searchTerms, 0, maxDistance);
+        		if(textNodeNearestElement){
+        			nearestTextNode = textNodeNearestElement;
+        			break;
+        		}
+        	}
+        	return nearestTextNode;
+        },
+        removeFoundElementsByTagName : function(foundElements, tagNamesToExclude){
+        	var filteredResult = [];
+        	for(var i = 0, max = foundElements.length; i < max; i++){
+        		var foundElement = foundElements[i];
+        		var tagName = foundElement.getNode().tagName;
+        		var exclude = false;
+        		for(var j = 0, tagNamesMatch = tagNamesToExclude.length; j < tagNamesMatch; j++){
+        			if(tagName.toLowerCase() == tagNamesToExclude[j]){
+        				exclude = true;
+        				break;
+        			}
+        		}
+        		if(!exclude)
+        			filteredResult.push(foundElement);
+        	}
+        	return filteredResult;
         },
     }
 

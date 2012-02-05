@@ -3,16 +3,35 @@
 var PERSONALSHOPPER = PERSONALSHOPPER || {};
 PERSONALSHOPPER.ADDTOLIST = PERSONALSHOPPER.ADDTOLIST || {};
 
-PERSONALSHOPPER.ADDTOLIST.productPageDetector = (function (elementFinder) {
+PERSONALSHOPPER.ADDTOLIST.productPageDetector = (function (elementFinder, productSearch, entities) {
 	// dependencies
     var elementFinder = elementFinder,
     // constants
-    _addButtonRegex = /add[ -_]{0,1}((to))[ -_]{0,1}(cart|bag|((wish[ -_]{0,1}){0,1}list))/i;
+    addButtonRegex = /add[ -_]{0,1}((to))[ -_]{0,1}(cart|bag|((wish[ -_]{0,1}){0,1}list))/i,
+    getTitleFromView = function(view){
+    	var titleElements = view.getElementsByTagName('title');
+    	if(titleElements.length > 0)
+    		return titleElements[0].innerText;
+		else
+			return document.title;
+    },
+    findProductNameTextElement = function(view){
+    	var pageTitle = getTitleFromView(view);
+    	var addToButtonMatches = elementFinder.findDeepestElementsWithRegex(view, addButtonRegex);
+    	var filteredResults = elementFinder.removeFoundElementsByTagName(addToButtonMatches, ['script']);
+    	var searchTerms = productSearch.extractSearchTerms(pageTitle);
+    	var textElementMatchWithTitle = elementFinder.findNearestTextNodeToElementsBySearchTerms(filteredResults, searchTerms, 10);
+    	if(textElementMatchWithTitle){
+    		console.log('found text node with match.  Parent node is:');
+    		console.log(textElementMatchWithTitle.getNode().parentNode);
+    		return textElementMatchWithTitle.getNode();
+    	}
+    };
     return {
         getAddToCartMatches: function (view) {
-            var textMatches = elementFinder.findTextNodesWithRegex(view, _addButtonRegex);
+            var textMatches = elementFinder.findTextNodesWithRegex(view, addButtonRegex);
             //return textMatches;
-            var elementMatches = elementFinder.findDeepestElementsWithRegex(view, _addButtonRegex);
+            var elementMatches = elementFinder.findDeepestElementsWithRegex(view, addButtonRegex);
             return {
             	getTextMatches : function() { return textMatches; },
             	getElementMatches : function() { return elementMatches; },
@@ -23,17 +42,25 @@ PERSONALSHOPPER.ADDTOLIST.productPageDetector = (function (elementFinder) {
            	}
         },
         isProductPage: function(view){
-        	var firstMatch = elementFinder.findFirstElementWithRegex(view, _addButtonRegex, true);
+        	var firstMatch = elementFinder.findFirstElementWithRegex(view, addButtonRegex, true);
         	if(firstMatch)
         		return true;
         	else
         		return false;
         },
         getAddToCartElements : function(view){
-        	return elementFinder.findDeepestElementsWithRegex(view, _addButtonRegex, true);
+        	return elementFinder.findDeepestElementsWithRegex(view, addButtonRegex, true);
         },
-        getProductName: function(document){
-        	return document.title;
+        getProductName: function(view){
+        	return getTitleFromView(view);
+        },
+        scrapeForProductInfo : function(view){
+        	var productNodeTextElement = findProductNameTextElement(view);
+        	if(productNodeTextElement){
+        		
+        		var product = new entities.Product(null, productNodeTextElement.nodeValue);
+        		return product;
+        	}        	
         }
     }
-})(PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder);
+})(PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder, PERSONALSHOPPER.SERVICES.ProductSearch, PERSONALSHOPPER.ENTITIES);

@@ -46,8 +46,9 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
 		openAddToListWindow : function(addToListPrompter, productTitle){
 			console.log(productTitle);
 			addToListPrompter.closePromptToAddToList();
+			scrapedProductInfo = productPageDetector.scrapeForProductInfo(document.body);
 			var listWindow = new addToListWindow(document.body);
-			listWindow.openAndLoad(productTitle);
+			listWindow.openAndLoadProduct(scrapedProductInfo);
 		}
 	};
     return Constr;
