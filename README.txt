@@ -1,0 +1,1 @@
+The Personal Shopper Extension is a plugin for google chrome that lets users save a product for later.
