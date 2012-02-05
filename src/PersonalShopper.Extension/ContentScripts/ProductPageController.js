@@ -1,20 +1,17 @@
 var PERSONALSHOPPER = PERSONALSHOPPER || {};
 PERSONALSHOPPER.APPLICATION = PERSONALSHOPPER.APPLICATION || {};
-
+// global dependency
+var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 var globalConfig = PERSONALSHOPPER.globalConfiguration || {};
 
 PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector, addToListPrompter, addToListWindow) {
     var writeFoundMatches = function (foundMatches) {
         if (globalConfig.debug) {
-        	log("matches:");
+        	debug.log("matches:");
         	for(var i = 0, max = foundMatches.length; i < max; i++){
-        		log(foundMatches[i].getNode());
+        		debug.log(foundMatches[i].getNode());
             }
         }
-    },
-	log = function(){
-		if(globalConfig.debug && console)
-			console.log(toLog);
     },
 	Constr = function(config){
 		this.config = config;
@@ -30,8 +27,8 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
 		},
 		detectAndNotifyIfProductPage : function(){
 			var isProductPage = productPageDetector.isProductPage(document.body);
-			log('Is Product Page?');
-			log(isProductPage);				
+			debug.log('Is Product Page?');
+			debug.log(isProductPage);				
 			if(isProductPage){
 				var productTitle = productPageDetector.getProductName(document.body);
 				var self = this;
@@ -44,7 +41,7 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
 			}
 		},
 		openAddToListWindow : function(addToListPrompter, productTitle){
-			console.log(productTitle);
+			debug.log(productTitle);
 			addToListPrompter.closePromptToAddToList();
 			scrapedProductInfo = productPageDetector.scrapeForProductInfo(document.body);
 			var listWindow = new addToListWindow(document.body);

@@ -3,6 +3,8 @@ PERSONALSHOPPER.SERVICES = PERSONALSHOPPER.SERVICES || {};
 PERSONALSHOPPER.REPOSITORIES = PERSONALSHOPPER.REPOSITORIES || {};
 PERSONALSHOPPER.ENTITIES = PERSONALSHOPPER.ENTITIES || {};
 PERSONALSHOPPER.BUSINESSRULES = PERSONALSHOPPER.BUSINESSRULES || {};
+// global dependency
+var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
 PERSONALSHOPPER.ENTITIES.Product = function(id, name, description, price, images, sizes, colors){
 	this.id = id,
@@ -30,8 +32,8 @@ PERSONALSHOPPER.REPOSITORIES.ShopStyleProductRepository = (function(xml2json, en
 	}
 	parseResponseForProducts = function(xmlString){
 		var resultsJson = getResultsJsonFromXml(xmlString);
-		console.log('Results:');
-		console.log(resultsJson);
+		debug.log('Results:');
+		debug.log(resultsJson);
 		var searchResult = resultsJson.SearchResult;
 		var products = [];
 		if(searchResult){
@@ -133,7 +135,7 @@ PERSONALSHOPPER.REPOSITORIES.ShopStyleProductRepository = (function(xml2json, en
 			var xhr = new XMLHttpRequest();
 			var productSearchUrl = getProductSearchUrl(productName);
 			var xmlhttp=new XMLHttpRequest();
-			console.log('searching for product: ' + productName);
+			debug.log('searching for product: ' + productName);
 			xhr.open("GET", productSearchUrl, true);
 			xhr.onreadystatechange = function() {
 			  if (xhr.readyState == 4) {
@@ -192,10 +194,10 @@ PERSONALSHOPPER.BUSINESSRULES.ProductFilter = (function(){
 	isMatch = function(container, toMatch){
 		var containerStripped = container.replace(/ /g, '').toLowerCase();
 		var toMatchStripped = toMatch.replace(/ /g, '').toLowerCase();
-		console.log('seeing if ' + containerStripped + ' is match with ' + toMatchStripped);
+		debug.log('seeing if ' + containerStripped + ' is match with ' + toMatchStripped);
 		var regExp = new RegExp(containerStripped);
 		var isMatched = regExp.test(toMatchStripped);
-		console.log('is matched? ' + isMatched);
+		debug.log('is matched? ' + isMatched);
 		return isMatched;		
 	};
 	return {

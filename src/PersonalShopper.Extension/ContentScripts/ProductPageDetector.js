@@ -1,7 +1,9 @@
 ﻿/// <reference path="~/Utilities.js" />
-
 var PERSONALSHOPPER = PERSONALSHOPPER || {};
 PERSONALSHOPPER.ADDTOLIST = PERSONALSHOPPER.ADDTOLIST || {};
+// global dependency
+var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
+
 
 PERSONALSHOPPER.ADDTOLIST.productPageDetector = (function (elementFinder, productSearch, entities) {
 	// dependencies
@@ -22,8 +24,8 @@ PERSONALSHOPPER.ADDTOLIST.productPageDetector = (function (elementFinder, produc
     	var searchTerms = productSearch.extractSearchTerms(pageTitle);
     	var textElementMatchWithTitle = elementFinder.findNearestTextNodeToElementsBySearchTerms(filteredResults, searchTerms, 10);
     	if(textElementMatchWithTitle){
-    		console.log('found text node with match.  Parent node is:');
-    		console.log(textElementMatchWithTitle.getNode().parentNode);
+    		debug.log('found text node with match.  Parent node is:');
+    		debug.log(textElementMatchWithTitle.getNode().parentNode);
     		return textElementMatchWithTitle.getNode();
     	}
     };

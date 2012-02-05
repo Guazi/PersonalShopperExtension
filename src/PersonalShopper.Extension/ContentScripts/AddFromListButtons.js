@@ -1,5 +1,7 @@
 ﻿var PERSONALSHOPPER = PERSONALSHOPPER || {};
 PERSONALSHOPPER.ADDFROMLIST = PERSONALSHOPPER.ADDFROMLIST || {};
+// global dependency
+var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
 PERSONALSHOPPER.ADDFROMLIST.buttonTarget = (function () {
     Constr = function (node, matches) {

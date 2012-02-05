@@ -1,5 +1,7 @@
 ﻿var PERSONALSHOPPER = PERSONALSHOPPER || {};
 PERSONALSHOPPER.CONTENTSCRIPTS = PERSONALSHOPPER.CONTENTSCRIPTS || {};
+// global dependency
+var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
 PERSONALSHOPPER.CONTENTSCRIPTS.foundElement = (function () {
     var Constr = function (node, matches) {
@@ -43,17 +45,17 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
 		// keep traversing until find a match.
 		var currentNode;
 		var nodeIsMatch;
-		//console.log("Logging matches.");
+		//debug.log("Logging matches.");
     	while (currentNode = walkerIterator.nextNode()) {
     		nodeIsMatch = isMatch(currentNode, regex);
-    		//console.log(currentNode);
-    		//console.log(nodeIsMatch);
+    		//debug.log(currentNode);
+    		//debug.log(nodeIsMatch);
     		if(nodeIsMatch ){
     			firstMatch = currentNode;
     			break;
     		}
     	}
-    	//console.log("End logging matches.");
+    	//debug.log("End logging matches.");
 		return firstMatch;
    	},
    	findTextNodesWithRegex = function (view, regex) {  	
@@ -104,8 +106,8 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
 				// end case - no more parents
 				return;
 			else {
-				console.log('searching in');
-				console.log(parentNode);
+				debug.log('searching in');
+				debug.log(parentNode);
 				var textNodeMatch = findFirstTextNodeBySearch(parentNode, searchTerms);
 				if(textNodeMatch)
 					// end case - match found
@@ -183,7 +185,7 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
 	},
 	log = function(toLog){
 		if(config.debug){
-			console.log(toLog);
+			debug.log(toLog);
 		}
 	};
     return {

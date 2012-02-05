@@ -1,5 +1,7 @@
 var PERSONALSHOPPER = PERSONALSHOPPER || {};
 PERSONALSHOPPER.BOOKMARKLETS = PERSONALSHOPPER.BOOKMARKLETS || {};
+// global dependency
+var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
 PERSONALSHOPPER.BOOKMARKLETS.utilites = (function(){
 	var appendStyleAttributes = function(element, attributes){

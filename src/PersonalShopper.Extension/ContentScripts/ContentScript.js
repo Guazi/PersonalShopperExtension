@@ -1,5 +1,7 @@
 ﻿var PERSONALSHOPPER = PERSONALSHOPPER || {};
 PERSONALSHOPPER.APPLICATION = PERSONALSHOPPER.APPLICATION || {};
+// global dependency
+var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
 PERSONALSHOPPER.APPLICATION.contentScript = (function (config, productPageMediator) {
     return {
