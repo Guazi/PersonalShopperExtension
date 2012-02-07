@@ -2,16 +2,13 @@ var PERSONALSHOPPER = PERSONALSHOPPER || {};
 PERSONALSHOPPER.APPLICATION = PERSONALSHOPPER.APPLICATION || {};
 // global dependency
 var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
-var globalConfig = PERSONALSHOPPER.globalConfiguration || {};
 
 PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector, addToListPrompter, addToListWindow) {
     var writeFoundMatches = function (foundMatches) {
-        if (globalConfig.debug) {
-        	debug.log("matches:");
-        	for(var i = 0, max = foundMatches.length; i < max; i++){
-        		debug.log(foundMatches[i].getNode());
-            }
-        }
+    	debug.log("matches:");
+    	for(var i = 0, max = foundMatches.length; i < max; i++){
+    		debug.log(foundMatches[i].getNode());
+        }        
     },
 	Constr = function(config){
 		this.config = config;

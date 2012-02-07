@@ -205,7 +205,7 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
         	}
         	return filteredResult;
         },
-        findFirstTextWithCondition : function(view, condition){
+        findFirstTextWithCondition : function(view, condition, excludeScripts){
 	   		var walkerIterator = createWalkerIterator(view, NodeFilter.SHOW_TEXT);
 	
 	        var node;
@@ -213,14 +213,18 @@ PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder = (function (config, foundElement) 
 	
 			var node;
 	        while (textNode = walkerIterator.nextNode()) {
-	        	var nodeText = textNode.nodeValue;
-	        	if(nodeText && nodeText.length > 3){
-	        		var meetsCondition = condition(nodeText);
-		            if (meetsCondition) {
-		                found = new foundElement(textNode);
-		                break;
-		            }
-	           	}
+	        	if(excludeScripts && textNode.parentNode.tagName.toLowerCase() == 'script')
+	        		continue;
+        		else {
+        			var nodeText = textNode.nodeValue;
+		        	if(nodeText && nodeText.length > 3){
+		        		var meetsCondition = condition(nodeText);
+			            if (meetsCondition) {
+			                found = new foundElement(textNode);
+			                break;
+			            }
+		           	}
+	           }
 	        }
 	
 	        return found;

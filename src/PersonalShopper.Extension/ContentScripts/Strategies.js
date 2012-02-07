@@ -14,7 +14,7 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.StrategyBase = (function(){
 })();
 
 PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities = (function(elementFinder){
-    var addButtonRegex = /add[ -_]{0,1}((to))[ -_]{0,1}(cart|bag|((wish[ -_]{0,1}){0,1}list))/i;
+    var addButtonRegex = /add[ -_]{0,1}(to)[ -_]{0,1}(shopping){0,1}[ -_]{0,1}(cart|bag|basket|((wish[ -_]{0,1}){0,1}list))/i;
 	return {		
 		getTitleFromView : function(view){
 	    	var titleElements = view.getElementsByTagName('title');
@@ -23,11 +23,27 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities = (function(elementFinder)
 			else
 				return document.title;
     	},
-    	extractSearchTerms : function(productName){
-			var searchTerms = [productName];
-			var secondTerms = productName.split(' - ');
-			for(var i = secondTerms.length - 1; i >= 0; i--){
-				searchTerms.push(secondTerms[i]);
+    	extractSearchTermsFromPageTitle : function(pageTitle){
+    		// zappos and tigerirect have at in end - remove everything after at
+    		var indexOfAt = pageTitle.indexOf(' at ', 0);
+    		var withoutAt = indexOfAt >= 0 ? pageTitle.substr(0, indexOfAt + 1) : pageTitle;
+    		var searchTerms = [withoutAt];
+			var splitTermsByDelimiter = function(terms, delimiter){
+				for(var i = 0, max = terms.length; i < max; i++){
+					var splitTerm = terms[i].split(delimiter);
+					if(splitTerm.length > 1){
+						for(var j = 0, max2 = splitTerm.length; j < max2; j++){
+							terms.push(splitTerm[j]);
+						}
+					}
+				}
+			}
+			splitTermsByDelimiter(searchTerms, ' - ');	
+			splitTermsByDelimiter(searchTerms, ': '); // amazon uses this			
+			splitTermsByDelimiter(searchTerms, ' at '); // zappos and tigerdirect use this
+			debug.log('search terms:');
+			for(var i = 0, max = searchTerms.length; i < max; i++){
+				debug.log(searchTerms[i]);
 			}
 			return searchTerms;
 		},
@@ -62,7 +78,7 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (fu
     	var pageTitle = productRetrievalUtilities.getTitleFromView(view);
     	var addToButtonMatches = productRetrievalUtilities.getAddToCartElements(view);
     	var filteredResults = elementFinder.removeFoundElementsByTagName(addToButtonMatches, ['script']);
-    	var searchTerms = productRetrievalUtilities.extractSearchTerms(pageTitle);
+    	var searchTerms = productRetrievalUtilities.extractSearchTermsFromPageTitle(pageTitle);
     	var textElementMatchWithTitle = elementFinder.findNearestToElementsThatMeetsCondition(filteredResults, 10, function(element){
     		return findFirstTextElementThatMatchesSearchTerms(element, searchTerms);
     	});
@@ -83,7 +99,7 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (fu
 	    	}
 	    	return doesMatch;
    		}
-   		return elementFinder.findFirstTextWithCondition(element, condition);
+   		return elementFinder.findFirstTextWithCondition(element, condition, true);
    };
 	return {
 		getProductInfo : function(){
