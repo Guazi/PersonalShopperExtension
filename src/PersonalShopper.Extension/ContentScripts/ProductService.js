@@ -6,7 +6,7 @@ PERSONALSHOPPER.BUSINESSRULES = PERSONALSHOPPER.BUSINESSRULES || {};
 var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
 
-PERSONALSHOPPER.REPOSITORIES.ShopStyleProductRepository = (function(xml2json, entities){
+PERSONALSHOPPER.REPOSITORIES.shopStyleProductRepository = (function(xml2json, entities){
 	var findProductWithNameUrl = 'http://api.shopstyle.com/action/apiSearch?pid=uid9600-812360-93&min=0&count=10',
 	getProductSearchUrl = function(productName){
 		return findProductWithNameUrl + '&fts=' + encodeURI(productName.replace(/ /g, '+').replace(/&/g, '+'));
@@ -130,7 +130,7 @@ PERSONALSHOPPER.REPOSITORIES.ShopStyleProductRepository = (function(xml2json, en
 	}
 })(xml2json, PERSONALSHOPPER.ENTITIES);
 
-PERSONALSHOPPER.BUSINESSRULES.ProductFilter = (function(){
+PERSONALSHOPPER.BUSINESSRULES.productFilter = (function(){
 	var findFirstProductInTerms = function(searchTerms, products){
 		var closestProduct;
 		var product;
@@ -188,7 +188,7 @@ PERSONALSHOPPER.BUSINESSRULES.ProductFilter = (function(){
 	};
 })();
 
-PERSONALSHOPPER.SERVICES.ProductSearch = (function(productRepository, productFilter){
+PERSONALSHOPPER.SERVICES.productSearch = (function(productRepository, productFilter){
 	var extractSearchTerms = function(productName){
 		var searchTerms = [productName];
 		var secondTerms = productName.split(' - ');
@@ -242,9 +242,9 @@ PERSONALSHOPPER.SERVICES.ProductSearch = (function(productRepository, productFil
 		},
 		extractSearchTerms : extractSearchTerms
 	};
-})(PERSONALSHOPPER.REPOSITORIES.ShopStyleProductRepository, PERSONALSHOPPER.BUSINESSRULES.ProductFilter);
+})(PERSONALSHOPPER.REPOSITORIES.shopStyleProductRepository, PERSONALSHOPPER.BUSINESSRULES.productFilter);
 
-PERSONALSHOPPER.SERVICES.ProductRetrieval = (function(productSearch, productFilter){
+PERSONALSHOPPER.SERVICES.productRetrieval = (function(productSearch, productFilter){
 	var findFirstMatchUsingSearchTerms = function(searchTerms, currentIndex, productRetrievalResultProcessor){
 		if(currentIndex >= searchTerms.length){
 			// end case, call result processor with null product
@@ -272,4 +272,4 @@ PERSONALSHOPPER.SERVICES.ProductRetrieval = (function(productSearch, productFilt
 			findFirstProduct(productName, productRetrievalResultProcessor);
 		}
 	};
-})(PERSONALSHOPPER.SERVICES.ProductSearch, PERSONALSHOPPER.BUSINESSRULES.ProductFilter);
+})(PERSONALSHOPPER.SERVICES.productSearch, PERSONALSHOPPER.BUSINESSRULES.productFilter);

@@ -18,3 +18,12 @@ PERSONALSHOPPER.UTILITIES.inheritance = (function(config){
 		}
 	}
 })();
+
+PERSONALSHOPPER.UTILITIES.evaluation = (function(config){
+	return {
+		notNullValue : function(a, b){
+			if(a) return a; 
+			else return b;	
+		}
+	}
+})();

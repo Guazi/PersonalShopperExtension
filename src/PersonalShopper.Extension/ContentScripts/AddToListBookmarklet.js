@@ -148,7 +148,7 @@ PERSONALSHOPPER.BOOKMARKLETS.addToListWindow = (function(utilities, productRetri
 		}
 	};
 	return Constr;
-})(PERSONALSHOPPER.BOOKMARKLETS.utilites, PERSONALSHOPPER.SERVICES.ProductRetrieval);
+})(PERSONALSHOPPER.BOOKMARKLETS.utilites);
 
 PERSONALSHOPPER.BOOKMARKLETS.addToListPrompter = (function(utilities){
 	var Constr = function(documentBody, productTitle){

@@ -10,6 +10,14 @@ PERSONALSHOPPER.ENTITIES.Product = function(id, name, description, price, images
 	this.sizes = sizes,
 	this.colors = colors;
 };
+
+/**
+ * Creates new product with projection of other product onto this one.  This
+ * product's properties take precendence if they have been assigned already
+ */
+//PERSONALSHOPPER.ENTITIES.Product.prototype.merge = function(product){
+//	return new PERSONALSHOPPER.ENTITIES.Product(evaluation.notNullValue(this.id, product.id));
+//}
 PERSONALSHOPPER.ENTITIES.Image = function(src){
 	this.src = src;
 };

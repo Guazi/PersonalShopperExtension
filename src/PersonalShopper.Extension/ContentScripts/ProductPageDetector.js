@@ -7,7 +7,7 @@ var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
 PERSONALSHOPPER.ADDTOLIST.productPageDetector = (function (elementFinder, productRetrievalStrategies) {
 	var getProductRetrievalStrategy = function(){
-		return productRetrievalStrategies.findProductNearAddToCartButton;
+		return productRetrievalStrategies.findProductByScrapeThenSearch;
 	};
 	return {
         isProductPage: function(view){

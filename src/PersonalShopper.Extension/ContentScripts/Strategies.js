@@ -102,7 +102,7 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (fu
    		return elementFinder.findFirstTextWithCondition(element, condition, true);
    };
 	return {
-		getProductInfo : function(){
+		getProductInfo : function(existingProductInfo){
 			var view = document.body;
 			var productNodeTextElement = findProductNameTextElement(view);
         	if(productNodeTextElement){        		
@@ -113,6 +113,34 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (fu
 	};
 })(PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities, PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder, PERSONALSHOPPER.ENTITIES);
 
-PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.FindProductBySearch = (function(){
-	
-})();
+PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductBySearch = (function(utilities, productRetrieval){
+	var processProductResult = function(existingProduct, retrievedProduct){
+		if(retrievedProduct){
+			if(!existingProduct.id)
+				existingProduct.id = retrievedProduct.id;
+		}
+		return existingProduct;
+	};
+	return {
+		getProductInfo : function(existingProductInfo){
+			var view = document.body;
+			var productName = existingProductInfo.name ? existingProductInfo.name : utilities.getTitleFromView(view);
+			var finalProduct;
+			productRetrieval.findProductInfo(productName, function(product){
+				finalProduct = processProductResult(existingProductInfo, product)
+			});
+			return finalProduct;
+		}
+	}
+})(PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities, PERSONALSHOPPER.SERVICES.productRetrieval);
+
+PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductByScrapeThenSearch = (function(productRetrieval){
+	return {
+		getProductInfo : function(existingProductInfo){
+			var scrapedProductInfo = productRetrieval.findProductNearAddToCartButton.getProductInfo(existingProductInfo);
+			// todo: below results in async callback - need to figure out how to actually return a value.
+			var enhancedWithSearch = productRetrieval.findProductBySearch.getProductInfo(scrapedProductInfo);
+			return enhancedWithSearch;
+		}
+	}
+})(PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL);
