@@ -7,7 +7,7 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
     var writeFoundMatches = function (foundMatches) {
     	debug.log("matches:");
     	for(var i = 0, max = foundMatches.length; i < max; i++){
-    		debug.log(foundMatches[i].getNode());
+    		debug.log(foundMatches[i]);
         }        
     },
 	Constr = function(config){

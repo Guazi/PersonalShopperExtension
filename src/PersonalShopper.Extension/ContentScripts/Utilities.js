@@ -4,8 +4,14 @@ PERSONALSHOPPER.UTILITIES = PERSONALSHOPPER.UTILITIES || {};
 PERSONALSHOPPER.UTILITIES.debug = (function(config){
 	return {
 		log : function(toLog){
-			if(config.debug){
-				console.log(toLog);
+            if(config.debug){
+                if(toLog.length && (typeof toLog != 'string')){
+                    for(var i = 0, max = toLog.length; i < max; i++){
+                        console.log(toLog[i]);
+                    }
+                }
+                else
+				    console.log(toLog);
 			}
 		}
 	}	
@@ -19,11 +25,29 @@ PERSONALSHOPPER.UTILITIES.inheritance = (function(config){
 	}
 })();
 
-PERSONALSHOPPER.UTILITIES.evaluation = (function(config){
+PERSONALSHOPPER.UTILITIES.evaluation = (function(debug){
 	return {
 		notNullValue : function(a, b){
 			if(a) return a; 
 			else return b;	
-		}
+		},
+        isSubSet: function(a, b){
+            var isSubSet = true;
+            for(var i = 0, max = a.length; i < max; i++){
+                var setContains = false;
+                var toSeeIfContains = a[i];
+                for(var j = 0, maxInSet = b.length; j < maxInSet; j++){
+                    if(toSeeIfContains == b[j]){
+                        setContains = true;
+                        break;
+                    }
+                }
+                if(!setContains){
+                    debug.log(['Set does not contain:',toSeeIfContains])
+                    isSubSet = false;
+                    return isSubSet;
+                }
+            }
+        }
 	}
-})();
+})(PERSONALSHOPPER.UTILITIES.debug);

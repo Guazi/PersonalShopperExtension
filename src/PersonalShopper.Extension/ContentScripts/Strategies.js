@@ -38,8 +38,8 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities = (function(elementFinder)
 					}
 				}
 			}
-			splitTermsByDelimiter(searchTerms, ' - ');	
-			splitTermsByDelimiter(searchTerms, ': '); // amazon uses this			
+			splitTermsByDelimiter(searchTerms, ' - ');
+			splitTermsByDelimiter(searchTerms, ': '); // amazon uses this
 			splitTermsByDelimiter(searchTerms, ' at '); // zappos and tigerdirect use this
 			debug.log('search terms:');
 			for(var i = 0, max = searchTerms.length; i < max; i++){
@@ -74,7 +74,9 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities = (function(elementFinder)
 })(PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder);
 
 PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (function(productRetrievalUtilities, elementFinder, entities){	
- 	var findProductNameTextElement = function(view){
+	var sizeRegex = /size/i,
+    colorRegex = /color/i,
+ 	findProductNameTextElement = function(view){
     	var pageTitle = productRetrievalUtilities.getTitleFromView(view);
     	var addToButtonMatches = productRetrievalUtilities.getAddToCartElements(view);
     	var filteredResults = elementFinder.removeFoundElementsByTagName(addToButtonMatches, ['script']);
@@ -83,10 +85,24 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (fu
     		return findFirstTextElementThatMatchesSearchTerms(element, searchTerms);
     	});
     	if(textElementMatchWithTitle){
-    		debug.log('found text node with match.  Parent node is:');
-    		debug.log(textElementMatchWithTitle.getNode().parentNode);
-    		return textElementMatchWithTitle.getNode();
+    		debug.log(['found text node with match.  Parent node is:' ,textElementMatchWithTitle.nearestElementWithCondition.parentNode]);
+            debug.log(['button found near is:', textElementMatchWithTitle.elementFoundNear]);
+    		return textElementMatchWithTitle;
     	}
+   },
+   findSizesWithinNode = function(node){
+   		var sizeElement = findFirstTextElementThatMatchesSearchTerms(node, [sizeRegex]);
+   		if(sizeElement){
+   			debug.log('found size node. parent node is:');
+   			debug.log(sizeElement.parentNode);
+   		}
+   },
+   findColorsWithinNode = function(node){
+       var colorElement = findFirstTextElementThatMatchesSearchTerms(node, [colorRegex]);
+       if(colorElement){
+           debug.log('found color node. parent node is:');
+           debug.log(colorElement.parentNode);
+       }
    },
    findFirstTextElementThatMatchesSearchTerms = function(element, searchTerms){
    		var condition = function(nodeText){
@@ -104,9 +120,15 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (fu
 	return {
 		getProductInfo : function(existingProductInfo){
 			var view = document.body;
-			var productNodeTextElement = findProductNameTextElement(view);
-        	if(productNodeTextElement){        		
-        		var product = new entities.Product(null, productNodeTextElement.nodeValue);
+			var productNameTextElement = findProductNameTextElement(view);
+        	if(productNameTextElement){
+                var productInfoWrapper = productNameTextElement.wrapperNode;
+                debug.log(['Product info wrapper:',productInfoWrapper]);
+                if(productInfoWrapper){
+                    var sizes = findSizesWithinNode(productInfoWrapper);
+                    var colors = findColorsWithinNode(productInfoWrapper);
+                }
+        		var product = new entities.Product(null, productNameTextElement.nearestElementWithCondition.nodeValue);
         		return product;
         	} 
 		}
