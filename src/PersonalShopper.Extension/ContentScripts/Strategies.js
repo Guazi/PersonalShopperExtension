@@ -14,9 +14,16 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.StrategyBase = (function(){
 })();
 
 PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities = (function(elementFinder){
-    var addButtonRegex = /add[ -_]{0,1}(to)[ -_]{0,1}(shopping){0,1}[ -_]{0,1}(cart|bag|basket|((wish[ -_]{0,1}){0,1}list))/i;
+    var addButtonRegex = /add[ -_]{0,1}(to)[ -_]{0,1}(shopping){0,1}[ -_]{0,1}(cart|bag|basket|((wish[ -_]{0,1}){0,1}list))/i,
+        getMetaElementsWithName = function(view, metaNames){
+            var metaElements = view.getElementsByTagName('meta');
+            for(var i = 0, max = metaNames.length; i < max; i++){
+                //var metaName
+            }
+        };
 	return {		
 		getTitleFromView : function(view){
+
 	    	var titleElements = view.getElementsByTagName('title');
 	    	if(titleElements.length > 0)
 	    		return titleElements[0].innerText;
@@ -41,6 +48,8 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities = (function(elementFinder)
 			splitTermsByDelimiter(searchTerms, ' - ');
 			splitTermsByDelimiter(searchTerms, ': '); // amazon uses this
 			splitTermsByDelimiter(searchTerms, ' at '); // zappos and tigerdirect use this
+            splitTermsByDelimiter(searchTerms, ' | '); // gap uses this
+            splitTermsByDelimiter(searchTerms, '. '); // cole haan uses this
 			debug.log('search terms:');
 			for(var i = 0, max = searchTerms.length; i < max; i++){
 				debug.log(searchTerms[i]);
