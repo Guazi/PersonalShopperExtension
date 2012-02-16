@@ -15,20 +15,41 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.StrategyBase = (function(){
 
 PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities = (function(elementFinder){
     var addButtonRegex = /add[ -_]{0,1}(to)[ -_]{0,1}(shopping){0,1}[ -_]{0,1}(cart|bag|basket|((wish[ -_]{0,1}){0,1}list))/i,
-        getMetaElementsWithName = function(view, metaNames){
-            var metaElements = view.getElementsByTagName('meta');
+        getFirstMetaElementsValueWithNames = function(metaNames){
+            var metaElementValue = null;
+            var metaElements = document.getElementsByTagName('meta');
             for(var i = 0, max = metaNames.length; i < max; i++){
-                //var metaName
+                var metaName = metaNames[i];
+                var metaOgProperty = 'og:' + metaName;
+                for(var j = 0, max2 = metaElements.length; j < max2; j++){
+                    var metaElement = metaElements[j];
+                    if(metaElement.getAttribute('property') == metaOgProperty || metaElement.getAttribute('name') == metaName){
+                        metaElementValue = metaElement.getAttribute('content');
+                        debug.log(['got title from meta element:',metaElementValue]);
+                        break;
+                    }
+                }
+                if(metaElementValue != null)
+                    break;
             }
+            return metaElementValue;
         };
 	return {		
 		getTitleFromView : function(view){
-
-	    	var titleElements = view.getElementsByTagName('title');
-	    	if(titleElements.length > 0)
-	    		return titleElements[0].innerText;
-			else
-				return document.title;
+            // first try getting title values from meta elements.
+            var metaTitleValue = getFirstMetaElementsValueWithNames(['title']);
+            if(metaTitleValue != null){
+                return metaTitleValue;
+            }
+            else{
+                var titleElements = view.getElementsByTagName('title');
+                if(titleElements.length > 0){
+                    debug.log(['got title from title html element:', metaTitleValue]);
+                    return titleElements[0].innerText;
+                }
+                else
+                    return document.title;
+            }
     	},
     	extractSearchTermsFromPageTitle : function(pageTitle){
     		// zappos and tigerirect have at in end - remove everything after at
