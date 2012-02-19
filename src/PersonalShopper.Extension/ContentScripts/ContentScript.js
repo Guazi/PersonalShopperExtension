@@ -3,19 +3,19 @@ PERSONALSHOPPER.APPLICATION = PERSONALSHOPPER.APPLICATION || {};
 // global dependency
 var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
-PERSONALSHOPPER.APPLICATION.contentScript = (function (config, productPageMediator) {
+PERSONALSHOPPER.APPLICATION.contentScript = (function (productPageMediator) {
     return {
-        init: function () {        	
+        init: function (config) {
         	var mediator = new productPageMediator({});
-        	if(config.findButtons){
-        		mediator.findButtons();
-        	}
+            if(config.trackAddToCartClicks){
+                var addToCartMatches = mediator.findButtons();
+                mediator.trackAddToCartClicks(addToCartMatches.getElementMatches());
+            }
         	if(config.notifyIfProductPage){
         		mediator.detectAndNotifyIfProductPage();
         	}
         }
     };
-})({findButtons: true, notifyIfProductPage: true}, 
-	PERSONALSHOPPER.APPLICATION.productPageMediator);
+})(PERSONALSHOPPER.APPLICATION.productPageMediator);
 
-PERSONALSHOPPER.APPLICATION.contentScript.init();
+PERSONALSHOPPER.APPLICATION.contentScript.init({trackAddToCartClicks: true, notifyIfProductPage: true});

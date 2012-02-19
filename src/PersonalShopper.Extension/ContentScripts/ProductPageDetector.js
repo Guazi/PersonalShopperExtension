@@ -20,6 +20,10 @@ PERSONALSHOPPER.ADDTOLIST.productPageDetector = (function (elementFinder, produc
         	var productRetrievalStrategy = getProductRetrievalStrategy();
         	return productRetrievalStrategy.getProductInfo();
         },
+        getProductInfoAroundAddToCartButton : function(button){
+            var productRetrievalStrategy = getProductRetrievalStrategy();
+            return productRetrievalStrategy.getProductInfoAroundAddToCartButtons(null, [button]);
+        },
         getAddToCartMatches : function(view){
         	return productRetrievalStrategies.utilities.getAllAddToCartMatches(view);
         }

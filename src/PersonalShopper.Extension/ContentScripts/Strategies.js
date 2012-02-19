@@ -3,15 +3,6 @@ PERSONALSHOPPER.STRATEGIES = PERSONALSHOPPER.STRATEGIES || {};
 var inheritance = inheritance || PERSONALSHOPPER.UTILITIES.inheritance;
 
 PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL = PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL || {};
-PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.StrategyBase = (function(){
-	var Constr = function(){	
-	};
-	Constr.prototype = {
-		getProductInfo : function(){
-			
-		}	
-	};
-})();
 
 PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities = (function(elementFinder){
     var addButtonRegex = /add[ -_]{0,1}(to)[ -_]{0,1}(shopping){0,1}[ -_]{0,1}(cart|bag|basket|((wish[ -_]{0,1}){0,1}list))/i,
@@ -44,11 +35,13 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities = (function(elementFinder)
             else{
                 var titleElements = view.getElementsByTagName('title');
                 if(titleElements.length > 0){
-                    debug.log(['got title from title html element:', metaTitleValue]);
+                    debug.log(['got title from title html element:', titleElements[0].innerText]);
                     return titleElements[0].innerText;
                 }
-                else
+                else{
+                    debug.log(['got title from document title', document.title]);
                     return document.title;
+                }
             }
     	},
     	extractSearchTermsFromPageTitle : function(pageTitle){
@@ -106,9 +99,24 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities = (function(elementFinder)
 PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (function(productRetrievalUtilities, elementFinder, entities){	
 	var sizeRegex = /size/i,
     colorRegex = /color/i,
- 	findProductNameTextElement = function(view){
+    getProductInfoAroundAddToCartButtons = function(existingProductInfo, addToButtonMatches){
+        var view = document.body;
+        var productNameTextElement = findProductNameTextElement(view, addToButtonMatches);
+        if(productNameTextElement){
+            var productInfoWrapper = productNameTextElement.wrapperNode;
+            debug.log(['Product info wrapper:',productInfoWrapper]);
+            if(productInfoWrapper){
+                var sizes = findSizesWithinNode(productInfoWrapper);
+                var colors = findColorsWithinNode(productInfoWrapper);
+            }
+            var product = new entities.Product(null, productNameTextElement.nearestElementWithCondition.nodeValue);
+            return product;
+        }
+        else
+            return existingProductInfo;
+    },
+ 	findProductNameTextElement = function(view, addToButtonMatches){
     	var pageTitle = productRetrievalUtilities.getTitleFromView(view);
-    	var addToButtonMatches = productRetrievalUtilities.getAddToCartElements(view);
     	var filteredResults = elementFinder.removeFoundElementsByTagName(addToButtonMatches, ['script']);
     	var searchTerms = productRetrievalUtilities.extractSearchTermsFromPageTitle(pageTitle);
     	var textElementMatchWithTitle = elementFinder.findNearestToElementsThatMeetsCondition(filteredResults, 10, function(element){
@@ -150,18 +158,10 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (fu
 	return {
 		getProductInfo : function(existingProductInfo){
 			var view = document.body;
-			var productNameTextElement = findProductNameTextElement(view);
-        	if(productNameTextElement){
-                var productInfoWrapper = productNameTextElement.wrapperNode;
-                debug.log(['Product info wrapper:',productInfoWrapper]);
-                if(productInfoWrapper){
-                    var sizes = findSizesWithinNode(productInfoWrapper);
-                    var colors = findColorsWithinNode(productInfoWrapper);
-                }
-        		var product = new entities.Product(null, productNameTextElement.nearestElementWithCondition.nodeValue);
-        		return product;
-        	} 
-		}
+            var addToButtonMatches = productRetrievalUtilities.getAddToCartElements(view);
+            return getProductInfoAroundAddToCartButtons(existingProductInfo, addToButtonMatches);
+		},
+        getProductInfoAroundAddToCartButtons: getProductInfoAroundAddToCartButtons
 	};
 })(PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities, PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder, PERSONALSHOPPER.ENTITIES);
 

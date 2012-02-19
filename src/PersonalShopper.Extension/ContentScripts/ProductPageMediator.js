@@ -10,6 +10,17 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
     		debug.log(foundMatches[i]);
         }        
     },
+    buildTrackAddToCartWorker = function(){
+        var worker = new Worker('SaveAddToCartClickProductInfo.js');
+        return worker;
+    },
+    trackAddToCartClick = function(button, trackAddToCartWorker){
+        debug.log(['tracking click of:',button]);
+        var productInfo = productPageDetector.getProductInfoAroundAddToCartButton(button);
+        if(productInfo){
+            trackAddToCartWorker.postMessage(productInfo);
+        }
+    },
 	Constr = function(config){
 		this.config = config;
 	};
@@ -21,6 +32,7 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
 	        	writeFoundMatches(addToCartMatches.getTextMatches());
 	        	writeFoundMatches(addToCartMatches.getElementMatches());
 	       	}
+            return addToCartMatches;
 		},
 		detectAndNotifyIfProductPage : function(){
 			var isProductPage = productPageDetector.isProductPage(document.body);
@@ -37,6 +49,18 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
 				prompter.promptToAddToList(openAddToListWindowFunction);
 			}
 		},
+        trackAddToCartClicks : function(addToCartButtons){
+            var trackAddToCartWorker = buildTrackAddToCartWorker();
+            for(var i = 0, max = addToCartButtons.length; i < max; i++){
+                var addToCartButton = addToCartButtons[i];
+                var currentOnClick = addToCartButton.onclick;
+                addToCartButton.onclick = function(){
+                    trackAddToCartClick(this, trackAddToCartWorker);
+                    if(currentOnClick)
+                        currentOnClick();
+                }
+            }
+        },
 		openAddToListWindow : function(addToListPrompter, productTitle){
 			debug.log(productTitle);
 			addToListPrompter.closePromptToAddToList();

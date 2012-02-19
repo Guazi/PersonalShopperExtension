@@ -10,7 +10,7 @@ PERSONALSHOPPER.REPOSITORIES.shopStyleProductRepository = (function(xml2json, en
 	var findProductWithNameUrl = 'http://api.shopstyle.com/action/apiSearch?pid=uid9600-812360-93&min=0&count=10',
 	getProductSearchUrl = function(productName){
 		return findProductWithNameUrl + '&fts=' + encodeURI(productName.replace(/ /g, '+').replace(/&/g, '+'));
-	}
+	},
 	parseResponseForProducts = function(xmlString){
 		var resultsJson = getResultsJsonFromXml(xmlString);
 		debug.log('Results:');
