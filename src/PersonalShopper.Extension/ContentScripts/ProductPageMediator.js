@@ -10,15 +10,11 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
     		debug.log(foundMatches[i]);
         }        
     },
-    buildTrackAddToCartWorker = function(){
-        var worker = new Worker('SaveAddToCartClickProductInfo.js');
-        return worker;
-    },
     trackAddToCartClick = function(button, trackAddToCartWorker){
         debug.log(['tracking click of:',button]);
         var productInfo = productPageDetector.getProductInfoAroundAddToCartButton(button);
         if(productInfo){
-            trackAddToCartWorker.postMessage(productInfo);
+
         }
     },
 	Constr = function(config){
