@@ -1,6 +1,7 @@
 var PERSONALSHOPPER = PERSONALSHOPPER || {};
 PERSONALSHOPPER.SERVICES = PERSONALSHOPPER.SERVICES || {};
 PERSONALSHOPPER.REPOSITORIES = PERSONALSHOPPER.REPOSITORIES || {};
+PERSONALSHOPPER.ENTITIES = PERSONALSHOPPER.ENTITIES || {};
 
 PERSONALSHOPPER.REPOSITORIES.mongoUtilities = (function(){
     var generateMongo = function(){
@@ -40,29 +41,39 @@ PERSONALSHOPPER.REPOSITORIES.mongoUtilities = (function(){
     }
 })();
 
+
 PERSONALSHOPPER.REPOSITORIES.usersRepository = (function(mongoUtilities, mongoDb){
     var mongoUrl = mongoUtilities.generateMongoUrl();
     return {
         getUserId : function(userName, callback){
             mongoDb.connect(mongoUrl, function(err, conn){
-               conn.collection('users', function(err, coll){
-                  var user = coll.findOne(userName);
-                  if(!user)
-                    throw new Error('No user exists with name' + userName);
-                   callback(user._id);
+               conn.collection('user', function(err, userCollection){
+                   userCollection.db.collection('users', function(err, usersCollection){
+                       var user = usersCollection.findOne({'profile.userName': userName});
+                       if(!user){
+                           console.log('No user exists with name ' + userName);
+                           callback(null);
+                       } else
+                           callback(user._id);
+                   });
                });
             });
         }
     };
 })(PERSONALSHOPPER.REPOSITORIES.mongoUtilities, require('mongodb'));
+
+PERSONALSHOPPER.ENTITIES.ShoppingListProductEntry = function(productInfo, createdOnDate){
+    productInfo = productInfo,
+    createdOnDate = createdOnDate
+}
 
 PERSONALSHOPPER.REPOSITORIES.shoppingListRepository = (function(mongoUtilities, mongoDb){
     var mongoUrl = mongoUtilities.generateMongoUrl();
     return {
         addProductToShoppingList : function(productInfo, userId, listCategoryId, callback){
             mongoDb.connect(mongoUrl, function(err, conn){
-               conn.collection('shoppingLists', function(err, coll){
-                   var shoppingList = coll.findOne()
+               conn.collection('userShoppingList.userShoppingLists', function(err, coll){
+                   coll.update({_id: userId}, {'$push':{'addHistoryList' : productInfo}})
                });
             });
         }
@@ -71,20 +82,26 @@ PERSONALSHOPPER.REPOSITORIES.shoppingListRepository = (function(mongoUtilities, 
 
 
 
-PERSONALSHOPPER.SERVICES.shoppingListService = (function(exports){
+PERSONALSHOPPER.SERVICES.shoppingListService = (function(exports, usersRepository, shoppingListRepository){
     var currentSku = 0;
     var addProductToList = function(addProductToListInput, done){
         usersRepository.getUserId(addProductToListInput.userName, function(userId){
            console.log('user id is');
            console.log(userId);
-            shoppingListRepository.addProductToShoppingList(
-                addProductToListInput.productInfo,
-                userId,
-                addProductToListInput.listCategoryId,
-            function(listEntryId){
 
-            });
-
+            if(userId){
+                console.log('adding user');
+                var productShoppingListEntry = new
+                shoppingListRepository.addProductToShoppingList(
+                    addProductToListInput.productInfo,
+                    userId,
+                    addProductToListInput.listCategoryId,
+                function(listEntryId){
+                    done(listEntryId);
+                });
+            }
+            else
+                done({});
         });
 
         done(addProductToListInput);

@@ -13,6 +13,7 @@ app.configure( function(){
         console.log('body is:');
         console.log(req.body);
         shoppingListService.addProductToList(req.body, function(productInsertionResult){
+            res.writeHead(200, {'Content-Type': 'text/json'});
             res.send(productInsertionResult);
         });
     });
