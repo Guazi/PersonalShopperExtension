@@ -14,7 +14,8 @@ app.configure( function(){
         console.log(req.body);
         shoppingListService.addProductToList(req.body, function(productInsertionResult){
             res.writeHead(200, {'Content-Type': 'text/json'});
-            res.send(productInsertionResult);
+            // todo: writing insertion result is breaking shit.  See what's wrong
+            res.end('done');
         });
     });
     app.get('/', function(req, res){

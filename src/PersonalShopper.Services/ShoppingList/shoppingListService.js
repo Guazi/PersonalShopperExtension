@@ -63,8 +63,8 @@ PERSONALSHOPPER.REPOSITORIES.usersRepository = (function(mongoUtilities, mongoDb
 })(PERSONALSHOPPER.REPOSITORIES.mongoUtilities, require('mongodb'));
 
 PERSONALSHOPPER.ENTITIES.ShoppingListProductEntry = function(productInfo, createdOnDate){
-    productInfo = productInfo,
-    createdOnDate = createdOnDate
+    this.productInfo = productInfo,
+    this.createdOnDate = createdOnDate
 }
 
 PERSONALSHOPPER.REPOSITORIES.shoppingListRepository = (function(mongoUtilities, mongoDb){
