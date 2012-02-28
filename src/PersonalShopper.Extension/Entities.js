@@ -1,8 +1,9 @@
 var PERSONALSHOPPER = PERSONALSHOPPER || {};
 PERSONALSHOPPER.ENTITIES = PERSONALSHOPPER.ENTITIES || {};
 
-PERSONALSHOPPER.ENTITIES.Product = function(id, name, description, price, images, sizes, colors){
+PERSONALSHOPPER.ENTITIES.Product = function(id, productUrl, name, description, price, images, sizes, colors){
 	this.id = id,
+    this.productUrl = productUrl,
 	this.name = name,
 	this.description = description,
 	this.price = price,

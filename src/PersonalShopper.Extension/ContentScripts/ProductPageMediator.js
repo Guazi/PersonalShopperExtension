@@ -3,18 +3,21 @@ PERSONALSHOPPER.APPLICATION = PERSONALSHOPPER.APPLICATION || {};
 // global dependency
 var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
-PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector, addToListPrompter, addToListWindow) {
-    var writeFoundMatches = function (foundMatches) {
+PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector, addToListPrompter, addToListWindow, shoppingListServiceClient) {
+    var trackAddToCartListTypeId = 0,
+    writeFoundMatches = function (foundMatches) {
     	debug.log("matches:");
     	for(var i = 0, max = foundMatches.length; i < max; i++){
     		debug.log(foundMatches[i]);
         }        
     },
-    trackAddToCartClick = function(button, trackAddToCartWorker){
+    trackAddToCartClick = function(button){
         debug.log(['tracking click of:',button]);
         var productInfo = productPageDetector.getProductInfoAroundAddToCartButton(button);
         if(productInfo){
-
+            shoppingListServiceClient.addProductToList(productInfo, 'stangogh@gmail.com', trackAddToCartListTypeId, function(responseText){
+               debug.log(responseText);
+            });
         }
     },
 	Constr = function(config){
@@ -46,12 +49,11 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
 			}
 		},
         trackAddToCartClicks : function(addToCartButtons){
-            var trackAddToCartWorker = buildTrackAddToCartWorker();
             for(var i = 0, max = addToCartButtons.length; i < max; i++){
                 var addToCartButton = addToCartButtons[i];
                 var currentOnClick = addToCartButton.onclick;
                 addToCartButton.onclick = function(){
-                    trackAddToCartClick(this, trackAddToCartWorker);
+                    trackAddToCartClick(this);
                     if(currentOnClick)
                         currentOnClick();
                 }
@@ -68,4 +70,5 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
     return Constr;
 })(PERSONALSHOPPER.ADDTOLIST.productPageDetector,
 	PERSONALSHOPPER.BOOKMARKLETS.addToListPrompter,
-	PERSONALSHOPPER.BOOKMARKLETS.addToListWindow);
+	PERSONALSHOPPER.BOOKMARKLETS.addToListWindow,
+    PERSONALSHOPPER.SERVICES.shoppingListServiceClient);

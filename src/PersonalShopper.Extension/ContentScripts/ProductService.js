@@ -6,7 +6,7 @@ PERSONALSHOPPER.BUSINESSRULES = PERSONALSHOPPER.BUSINESSRULES || {};
 var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
 
-PERSONALSHOPPER.REPOSITORIES.shopStyleProductRepository = (function(xml2json, entities){
+PERSONALSHOPPER.REPOSITORIES.shopStyleProductRepository = (function(xml2json, entities, serviceClient){
 	var findProductWithNameUrl = 'http://api.shopstyle.com/action/apiSearch?pid=uid9600-812360-93&min=0&count=10',
 	getProductSearchUrl = function(productName){
 		return findProductWithNameUrl + '&fts=' + encodeURI(productName.replace(/ /g, '+').replace(/&/g, '+'));
@@ -115,20 +115,14 @@ PERSONALSHOPPER.REPOSITORIES.shopStyleProductRepository = (function(xml2json, en
 		findProductsWithName : function(productName, findProductsResultProcessor){
 			var xhr = new XMLHttpRequest();
 			var productSearchUrl = getProductSearchUrl(productName);
-			var xmlhttp=new XMLHttpRequest();
-			debug.log('searching for product: ' + productName);
-			xhr.open("GET", productSearchUrl, true);
-			xhr.onreadystatechange = function() {
-			  if (xhr.readyState == 4) {
-			    // JSON.parse does not evaluate the attacker's scripts.
-			    var productResults = parseResponseForProducts(xhr.responseText);
-			    findProductsResultProcessor.call(null, productResults)
-			  }
-			}
-			xhr.send();
+            debug.log('searching for product: ' + productName);
+            serviceClient.asyncGet(productSearchUrl, function(responseText){
+                var productResults = parseResponseForProducts(responseText);
+                findProductsResultProcessor.call(null, productResults);
+            });
 		}
 	}
-})(xml2json, PERSONALSHOPPER.ENTITIES);
+})(xml2json, PERSONALSHOPPER.ENTITIES, PERSONALSHOPPER.UTILITIES.serviceClient);
 
 PERSONALSHOPPER.BUSINESSRULES.productFilter = (function(){
 	var findFirstProductInTerms = function(searchTerms, products){

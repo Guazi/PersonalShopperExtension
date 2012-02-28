@@ -109,7 +109,9 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (fu
                 var sizes = findSizesWithinNode(productInfoWrapper);
                 var colors = findColorsWithinNode(productInfoWrapper);
             }
-            var product = new entities.Product(null, productNameTextElement.nearestElementWithCondition.nodeValue);
+            var productName = productNameTextElement.nearestElementWithCondition.nodeValue;
+            var productUrl = window.location.href;
+            var product = new entities.Product(null, productUrl, productName);
             return product;
         }
         else
@@ -170,6 +172,8 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductBySearch = (function(util
 		if(retrievedProduct){
 			if(!existingProduct.id)
 				existingProduct.id = retrievedProduct.id;
+            if(!existingProduct.productUrl)
+                existingProduct.productUrl = retrievedProduct.productUl;
 		}
 		return existingProduct;
 	};

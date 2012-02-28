@@ -16,8 +16,9 @@
       "ContentScripts/ProductService.js",  
       "ContentScripts/Strategies.js", 
       "ContentScripts/ProductPageDetector.js", 
-      "ContentScripts/AddToListBookmarklet.js", 
-      "ContentScripts/ProductPageMediator.js", 
+      "ContentScripts/AddToListBookmarklet.js",
+      "ShoppingListServiceClient.js",
+      "ContentScripts/ProductPageMediator.js",
       "ContentScripts/ContentScript.js"],
       "run_at" : "document_idle",
       "all_frames" : false

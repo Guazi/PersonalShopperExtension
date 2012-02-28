@@ -51,3 +51,34 @@ PERSONALSHOPPER.UTILITIES.evaluation = (function(debug){
         }
 	}
 })(PERSONALSHOPPER.UTILITIES.debug);
+
+PERSONALSHOPPER.UTILITIES.serviceClient = (function(){
+    var buildJsonPostBodyFromValues = function(postData){
+        var postBody = JSON.stringify(postData);
+        return postBody;
+    };
+    return {
+        asyncGet : function(url, callback){
+            var xhr=new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    callback(xhr.responseText);
+                }
+            }
+            xhr.send();
+        },
+        asyncPostJson : function(url, postData, callback){
+            var xhr=new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            var postBody = buildJsonPostBodyFromValues(postData);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    callback(xhr.responseText);
+                }
+            };
+            xhr.send(postBody);
+        }
+    };
+})();
