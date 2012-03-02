@@ -5,7 +5,7 @@ PERSONALSHOPPER.REPOSITORIES = PERSONALSHOPPER.REPOSITORIES || {};
 
 
 PERSONALSHOPPER.SERVICES.shoppingListServiceClient = (function(serviceClient){
-    var serviceHostUrl = /*'http://personalshopper.cloudfoundry.com';*/'http://localhost:3000';
+    var serviceHostUrl = /*'http://personalshopper.cloudfoundry.com';*/'http://localhost:50534';
     return {
         addProductToList : function(productInfo, userName, listTypeId, callback){
             var postData = {
@@ -13,7 +13,7 @@ PERSONALSHOPPER.SERVICES.shoppingListServiceClient = (function(serviceClient){
                 userName : userName,
                 listTypeId : listTypeId
             };
-            serviceClient.asyncPostJson(serviceHostUrl + '/addProductToList', postData, callback);
+            serviceClient.asyncPostJson(serviceHostUrl + '/shoppinglist/addtoshoppinglist', 'put', postData, callback);
         }
     }
 })(PERSONALSHOPPER.UTILITIES.serviceClient);

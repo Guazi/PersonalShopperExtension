@@ -68,9 +68,9 @@ PERSONALSHOPPER.UTILITIES.serviceClient = (function(){
             }
             xhr.send();
         },
-        asyncPostJson : function(url, postData, callback){
+        asyncPostJson : function(url, method, postData, callback){
             var xhr=new XMLHttpRequest();
-            xhr.open("POST", url, true);
+            xhr.open(method, url, true);
             var postBody = buildJsonPostBodyFromValues(postData);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onreadystatechange = function() {
