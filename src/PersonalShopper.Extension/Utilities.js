@@ -101,9 +101,10 @@ PERSONALSHOPPER.UTILITIES.viewEngine = (function(mustache){
     };
     return{
         render : render,
-        renderInElement : function(view, model, element){
+        renderInElement : function(view, model, $element){
             var rendered = render(view, model);
-            element.innerHTML = rendered;
+            debug.log(['populated html', rendered]);
+            $element.html(rendered);
         }
     }
 })(Mustache);

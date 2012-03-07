@@ -2,21 +2,23 @@
     <head>
        <section>
            <h2>User Information</h2>
-           <fieldset id="userInformation">
+           <fieldset class="userInformation">
            </fieldset>
        </section>
     </head>
     <body>
+        <script type="text/javascript" src="../jquery-1.7.1.min.js"></script>
         <script type="text/javascript" src="../Mustache.js"></script>
         <script type="text/javascript" src="../Utilities.js"></script>
         <script type="text/javascript" src="ShoppingCartContextService.js"></script>
         <script type="text/javascript" src="ShoppingListPage.js"></script>
 
         <script type="text/javascript">
-            (function(){
-                var shoppingListController = new PERSONALSHOPPER.BACKGROUNDPAGES.shoppingListController();
+            jQuery(document).ready(function($) {
+                var view = $('section');
+                var shoppingListController = new PERSONALSHOPPER.BACKGROUNDPAGES.shoppingListController(view);
                 shoppingListController.renderUserInformation();
-            })();
+            });
         </script>
     </body>
 </html>
