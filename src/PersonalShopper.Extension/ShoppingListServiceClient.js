@@ -5,7 +5,7 @@ PERSONALSHOPPER.REPOSITORIES = PERSONALSHOPPER.REPOSITORIES || {};
 
 
 PERSONALSHOPPER.SERVICES.shoppingListServiceClient = (function(serviceClient){
-    var serviceHostUrl = /*'http://personalshopper.cloudfoundry.com';*/'http://localhost:50534';
+    var serviceHostUrl = 'http://personalshopperservice.apphb.com'/*'http://localhost:9090'*/;
     return {
         addProductToList : function(productInfo, userName, listTypeId, callback){
             var postData = {

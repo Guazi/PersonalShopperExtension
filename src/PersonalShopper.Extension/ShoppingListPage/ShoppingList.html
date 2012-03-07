@@ -1,0 +1,22 @@
+<html>
+    <head>
+       <section>
+           <h2>User Information</h2>
+           <fieldset id="userInformation">
+           </fieldset>
+       </section>
+    </head>
+    <body>
+        <script type="text/javascript" src="../Mustache.js"></script>
+        <script type="text/javascript" src="../Utilities.js"></script>
+        <script type="text/javascript" src="ShoppingCartContextService.js"></script>
+        <script type="text/javascript" src="ShoppingListPage.js"></script>
+
+        <script type="text/javascript">
+            (function(){
+                var shoppingListController = new PERSONALSHOPPER.BACKGROUNDPAGES.shoppingListController();
+                shoppingListController.renderUserInformation();
+            })();
+        </script>
+    </body>
+</html>

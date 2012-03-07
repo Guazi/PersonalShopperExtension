@@ -82,3 +82,28 @@ PERSONALSHOPPER.UTILITIES.serviceClient = (function(){
         }
     };
 })();
+
+// wrapper around local storage
+PERSONALSHOPPER.UTILITIES.userStorage = (function(){
+    return {
+        setItem : function(key, value){
+            localStorage.setItem(key, value);
+        },
+        getItem : function(key){
+            return localStorage.getItem(key);
+        }
+    }
+})();
+
+PERSONALSHOPPER.UTILITIES.viewEngine = (function(mustache){
+    var render = function(view, model){
+        return mustache.render(view, model);
+    };
+    return{
+        render : render,
+        renderInElement : function(view, model, element){
+            var rendered = render(view, model);
+            element.innerHTML = rendered;
+        }
+    }
+})(Mustache);

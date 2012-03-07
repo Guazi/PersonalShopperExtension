@@ -15,7 +15,7 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
         debug.log(['tracking click of:',button]);
         var productInfo = productPageDetector.getProductInfoAroundAddToCartButton(button);
         if(productInfo){
-            shoppingListServiceClient.addProductToList(productInfo, 'stangogh@gmail.com', trackAddToCartListTypeId, function(responseText){
+            shoppingListServiceClient.addProductToList(productInfo, 'stangogh2@gmail.com', trackAddToCartListTypeId, function(responseText){
                debug.log(responseText);
             });
         }

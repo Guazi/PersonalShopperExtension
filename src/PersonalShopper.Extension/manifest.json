@@ -10,7 +10,8 @@
         "https://*/*"
       ],
       "js" : ["Entities.js",
-      "ContentScripts/Utilities.js",
+      "Mustache.js",
+      "Utilities.js",
       "ContentScripts/ElementFinder.js",
       "ContentScripts/xml2json.js", 
       "ContentScripts/ProductService.js",  
@@ -31,6 +32,6 @@
   "browser_action": {
       "default_title": "Review your list.",
       "default_icon": "cart.png",
-      "popup": "reviewcart.html"
+      "popup": "ShoppingListPage/ShoppingList.html"
   }
 }
