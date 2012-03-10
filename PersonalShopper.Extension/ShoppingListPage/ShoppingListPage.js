@@ -40,7 +40,7 @@ PERSONALSHOPPER.BACKGROUNDPAGES.UserInformationController = (function($, viewEng
         },
         promptForUserName : function(){
             var currentUserName = shoppingCartContextService.getLoggedInUserName();
-            var model = new MODELS.userInformation(currentUserName);
+            var model = new models.userInformation(currentUserName);
             var viewTemplate = viewTemplates.getUserNameView;
             var toPopulate = this.$view.find('fieldset.userInformation');
             viewEngine.renderInElement(viewTemplate, model, toPopulate);
