@@ -17,8 +17,8 @@
             $(function() {
                 // do something on document ready
                 var view = $('section');
-                var shoppingListController = new PERSONALSHOPPER.BACKGROUNDPAGES.shoppingListController(view);
-                shoppingListController.renderUserInformation();
+                var shoppingListPage = new PERSONALSHOPPER.BACKGROUNDPAGES.ShoppingListPage(view);
+                shoppingListPage.init();
             });
         </script>
     </body>

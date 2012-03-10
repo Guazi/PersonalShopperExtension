@@ -108,3 +108,17 @@ PERSONALSHOPPER.UTILITIES.viewEngine = (function(mustache){
         }
     }
 })(Mustache);
+
+PERSONALSHOPPER.UTILITIES.events = (function($){
+    return {
+        // pattern taken from Javascript Web Applications
+        bind : function(){
+            if(!this.o) this.o = $({});
+            this.o.bind.apply(this.o, arguments);
+        },
+        trigger : function(){
+            if(!this.o) this.o  = $({});
+            this.o.trigger.apply(this.o, arguments);
+        }
+    };
+})(jQuery);
