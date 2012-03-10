@@ -7,14 +7,15 @@
        </section>
     </head>
     <body>
-        <script type="text/javascript" src="../jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="../jquery-1.7.1.js"></script>
         <script type="text/javascript" src="../Mustache.js"></script>
         <script type="text/javascript" src="../Utilities.js"></script>
         <script type="text/javascript" src="ShoppingCartContextService.js"></script>
         <script type="text/javascript" src="ShoppingListPage.js"></script>
 
         <script type="text/javascript">
-            jQuery(document).ready(function($) {
+            $(function() {
+                // do something on document ready
                 var view = $('section');
                 var shoppingListController = new PERSONALSHOPPER.BACKGROUNDPAGES.shoppingListController(view);
                 shoppingListController.renderUserInformation();
