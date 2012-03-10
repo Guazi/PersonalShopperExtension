@@ -18,7 +18,15 @@ PERSONALSHOPPER.SERVICES.shoppingListServiceClient = (function(serviceClient){
         },
         getUsersShoppingList : function(userName, callback){
             var getUrl =   serviceHostUrl + '/shoppinglist/GetUsersShoppingList/' + userName;
-            serviceClient.asyncGet(getUrl, callback);
+            serviceClient.asyncGet(getUrl, function(data){
+                var shoppingList;
+                if(!data || data === 'null')
+                    shoppingList = null;
+                else {
+                    shoppingList = JSON.parse(data);
+                }
+                callback(shoppingList);
+            });
         }
     };
 })(PERSONALSHOPPER.UTILITIES.serviceClient);

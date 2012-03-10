@@ -70,7 +70,7 @@ PERSONALSHOPPER.BACKGROUNDPAGES.ShoppingListController = (function($, viewEngine
         yourShoppingListOfUser : "<h2>Your shopping list:</h2><table>" +
             "<th><td>Name</td><td>Added On</td></th>" +
             "{{#ShoppingListEntries}}<tr>" +
-            "<td>{ProductName}</td><td></td>" +
+            "<td>{{ProductName}}</td><td></td>" +
             "</tr>{{/ShoppingListEntries}}" +
             "</table>"
     },
@@ -89,7 +89,7 @@ PERSONALSHOPPER.BACKGROUNDPAGES.ShoppingListController = (function($, viewEngine
             var self = this;
             if(userName){
                 shoppingListService.getUsersShoppingList(userName, function(data){
-                   if(!data || data === 'null')
+                   if(!data)
                        renderEmtpyShoppingListView(self.$view);
                    else
                        renderShoppingListView(data, self.$view);
