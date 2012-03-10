@@ -22,35 +22,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ShoppingListPage.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ShoppingListPage.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ShoppingListPage/ShoppingListPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="34" selection-start="2051" selection-end="2051" vertical-scroll-proportion="0.796875">
+            <state line="44" column="72" selection-start="2212" selection-end="2212" vertical-scroll-proportion="-8.5">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddFromListBackground.htm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AddFromListBackground.htm">
+      <file leaf-file-name="ShoppingListServiceClient.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ShoppingListServiceClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="8" column="26" selection-start="349" selection-end="349" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShoppingList.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ShoppingListPage/ShoppingList.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="24" selection-start="695" selection-end="699" vertical-scroll-proportion="-11.769231">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jquery-1.7.1.min.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jquery-1.7.1.min.js">
+      <file leaf-file-name="SaveAddToCartClickProductInfo.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ContentScripts/SaveAddToCartClickProductInfo.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
@@ -58,17 +49,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Utilities.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Utilities.js">
+      <file leaf-file-name="ProductService.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ContentScripts/ProductService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="111" column="0" selection-start="3318" selection-end="3318" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mustache.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mustache.js">
+      <file leaf-file-name="ProductPageDetector.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ContentScripts/ProductPageDetector.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ElementFinder.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ContentScripts/ElementFinder.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="239" column="22" selection-start="8943" selection-end="8943" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddToListBookmarklet.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ContentScripts/AddToListBookmarklet.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
@@ -85,28 +94,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ContentScript.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ContentScripts/ContentScript.js">
+      <file leaf-file-name="ProductPageMediator.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ContentScripts/ProductPageMediator.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="64" selection-start="109" selection-end="184" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ElementFinder.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ContentScripts/ElementFinder.js">
+      <file leaf-file-name="Utilities.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Utilities.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="239" column="22" selection-start="8943" selection-end="8943" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="manifest.json" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/manifest.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="24" selection-start="322" selection-end="322" vertical-scroll-proportion="0.0">
+            <state line="61" column="38" selection-start="1822" selection-end="1836" vertical-scroll-proportion="0.55988026">
               <folding />
             </state>
           </provider>
@@ -142,14 +142,14 @@
         <option value="$PROJECT_DIR$/ContentScripts/Strategies.js" />
         <option value="$PROJECT_DIR$/ContentScripts/Utilities.js" />
         <option value="$PROJECT_DIR$/ContentScripts/ProductPageMediator.js" />
-        <option value="$PROJECT_DIR$/ShoppingListServiceClient.js" />
         <option value="$PROJECT_DIR$/Settings.js" />
         <option value="$PROJECT_DIR$/reviewcart.html" />
         <option value="$PROJECT_DIR$/ShoppingListPage/ShoppingCartContextService.js" />
         <option value="$PROJECT_DIR$/ShoppingListPage/PersonalShopper.css" />
+        <option value="$PROJECT_DIR$/manifest.json" />
         <option value="$PROJECT_DIR$/ShoppingListPage/ShoppingList.html" />
         <option value="$PROJECT_DIR$/Utilities.js" />
-        <option value="$PROJECT_DIR$/manifest.json" />
+        <option value="$PROJECT_DIR$/ShoppingListServiceClient.js" />
         <option value="$PROJECT_DIR$/ShoppingListPage/ShoppingListPage.js" />
       </list>
     </option>
@@ -371,39 +371,23 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Settings.js">
+    <entry file="file://$PROJECT_DIR$/ShoppingListPage/ShoppingList.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="45" selection-end="45" vertical-scroll-proportion="0.0" />
+        <state line="22" column="34" selection-start="855" selection-end="855" vertical-scroll-proportion="-14.384615">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShoppingListServiceClient.js">
+    <entry file="file://$PROJECT_DIR$/jquery-1.7.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="26" selection-start="279" selection-end="318" vertical-scroll-proportion="0.0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Entities.js">
+    <entry file="file://$PROJECT_DIR$/AddFromListBackground.htm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="16" selection-start="246" selection-end="246" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/add.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cart.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ShoppingListPage/PersonalShopper.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="13" selection-start="832" selection-end="832" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ContentScripts/ElementFinder.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="239" column="22" selection-start="8943" selection-end="8943" vertical-scroll-proportion="0.0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mustache.js">
@@ -416,35 +400,56 @@
         <state line="1" column="64" selection-start="109" selection-end="184" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AddFromListBackground.htm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ShoppingListPage/ShoppingList.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="24" selection-start="695" selection-end="699" vertical-scroll-proportion="-11.769231">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Utilities.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="0" selection-start="3318" selection-end="3318" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jquery-1.7.1.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manifest.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="24" selection-start="322" selection-end="322" vertical-scroll-proportion="0.0">
+        <state line="2" column="4" selection-start="36" selection-end="36" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ShoppingListPage/ShoppingListPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="72" selection-start="2212" selection-end="2212" vertical-scroll-proportion="-8.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ShoppingListServiceClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="26" selection-start="349" selection-end="349" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ContentScripts/ProductService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ContentScripts/ProductPageDetector.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ContentScripts/ElementFinder.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="239" column="22" selection-start="8943" selection-end="8943" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ContentScripts/AddToListBookmarklet.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ContentScripts/SaveAddToCartClickProductInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -454,9 +459,16 @@
         <state line="13" column="42" selection-start="499" selection-end="499" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShoppingListPage/ShoppingListPage.js">
+    <entry file="file://$PROJECT_DIR$/ContentScripts/ProductPageMediator.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="34" selection-start="2051" selection-end="2051" vertical-scroll-proportion="0.796875">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utilities.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="38" selection-start="1822" selection-end="1836" vertical-scroll-proportion="0.55988026">
           <folding />
         </state>
       </provider>

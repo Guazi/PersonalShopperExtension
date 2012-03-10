@@ -16,9 +16,10 @@ PERSONALSHOPPER.BACKGROUNDPAGES.UserInformationController = (function($, viewEng
             "</form>",
         loggedInUserNameView : "Your user name is {{userName}}. <a href=''#' class='setUserLink'>Set username</a>",
         notLoggedInUserNameView : "You don't have a username. <a href=''#' class='setUserLink'>Set username</a>"
-    };
-    var Constr = function($view){
-        this.$view = $view;
+    }
+    Constr = function($view, events){
+        this.$view = $view.find('fieldset.userInformation');
+        this.events = events;
     };
     Constr.prototype = {
         renderUserInformation : function(){
@@ -29,8 +30,7 @@ PERSONALSHOPPER.BACKGROUNDPAGES.UserInformationController = (function($, viewEng
         renderUserInformationView : function(userName){
             var viewTemplate = userName != null ? viewTemplates.loggedInUserNameView : viewTemplates.notLoggedInUserNameView;
             var model = new models.userInformation(userName);
-            var toPopulate = this.$view.find('fieldset.userInformation');
-            viewEngine.renderInElement(viewTemplate, model, toPopulate);
+            viewEngine.renderInElement(viewTemplate, model, this.$view);
 
             var self = this;
             this.$view.find('a.setUserLink').click(function(event){
@@ -42,8 +42,7 @@ PERSONALSHOPPER.BACKGROUNDPAGES.UserInformationController = (function($, viewEng
             var currentUserName = shoppingCartContextService.getLoggedInUserName();
             var model = new models.userInformation(currentUserName);
             var viewTemplate = viewTemplates.getUserNameView;
-            var toPopulate = this.$view.find('fieldset.userInformation');
-            viewEngine.renderInElement(viewTemplate, model, toPopulate);
+            viewEngine.renderInElement(viewTemplate, model, this.$view);
             var self = this;
             this.$view.find('form.getUserNameForm').submit(function(event){
                 var form = this;
@@ -55,34 +54,81 @@ PERSONALSHOPPER.BACKGROUNDPAGES.UserInformationController = (function($, viewEng
         },
         setUserName : function(userName){
             shoppingCartContextService.setLoggedInUserName(userName);
-            this.trigger('userNameSet', userName);
+            this.events.trigger('userNameSet', userName);
         }
     };
     return Constr;
 })(jQuery,
-   PERSONALSHOPPER.UTILITIES.viewEngine,
-   PERSONALSHOPPER.SERVICES.shoppingCartContextService);
+    PERSONALSHOPPER.UTILITIES.viewEngine,
+    PERSONALSHOPPER.SERVICES.shoppingCartContextService);
 
-PERSONALSHOPPER.BACKGROUNDPAGES.ShoppingListPage = (function($, events, userInformationControllerConst){
+PERSONALSHOPPER.BACKGROUNDPAGES.ShoppingListController = (function($, viewEngine, shoppingListService){
+    var models = {
+    },
+    viewTemplates = {
+        noShoppingList : "<h2>No shopping list</h2>",
+        yourShoppingListOfUser : "<h2>Your shopping list:</h2><table>" +
+            "<th><td>Name</td><td>Added On</td></th>" +
+            "{{#ShoppingListEntries}}<tr>" +
+            "<td>{ProductName}</td><td></td>" +
+            "</tr>{{/ShoppingListEntries}}" +
+            "</table>"
+    },
+    renderEmtpyShoppingListView = function($view){
+        viewEngine.renderInElement(viewTemplates.noShoppingList, null, $view);
+    },
+    renderShoppingListView = function(shoppingList, $view){
+        var model = shoppingList;
+        viewEngine.renderInElement(viewTemplates.yourShoppingListOfUser, model, $view);
+    },
+    Constr = function($view){
+        this.$view = $view.find('section.shoppingList');
+    };
+    Constr.prototype = {
+        loadShoppingList : function(userName){
+            var self = this;
+            if(userName){
+                shoppingListService.getUsersShoppingList(userName, function(data){
+                   if(!data || data === 'null')
+                       renderEmtpyShoppingListView(self.$view);
+                   else
+                       renderShoppingListView(data, self.$view);
+                });
+            }
+        }
+    };
+    return Constr;
+})(jQuery,
+    PERSONALSHOPPER.UTILITIES.viewEngine,
+    PERSONALSHOPPER.SERVICES.shoppingListServiceClient);
+
+PERSONALSHOPPER.BACKGROUNDPAGES.ShoppingListPage = (function($, EventsConstr,
+                                                             userInformationControllerConstr,
+                                                             shoppingListControllerConstr){
     var Constr = function($view){
         this.$view = $view;
+        this.events = new EventsConstr($view);
     };
     Constr.prototype = {
         init : function(){
-            debug.log(['before binding this is', this]);
-            jQuery.extend(this, events);
-            debug.log(['aftter binding this is', this]);
-            this.userInformationController = new userInformationControllerConst(this.$view);
-            this.bind('userNameSet', this.userNameSet);
+            this.userInformationController = new userInformationControllerConstr(this.$view, this.events);
+            this.shoppingListController = new shoppingListControllerConstr(this.$view, this.events);
+            var self = this;
+            this.events.bind('userNameSet', function(event, data){
+                self.userNameSet(data);
+            });
             this.userNameSet();
             //this.trigger('userNameSet'  );
         },
         userNameSet : function(userName){
             this.userInformationController.renderUserInformation();
+            this.shoppingListController.loadShoppingList(userName);
         }
     };
     return Constr;
 })(jQuery,
-    PERSONALSHOPPER.UTILITIES.events,
-    PERSONALSHOPPER.BACKGROUNDPAGES.UserInformationController);
+    PERSONALSHOPPER.UTILITIES.Events,
+    PERSONALSHOPPER.BACKGROUNDPAGES.UserInformationController,
+    PERSONALSHOPPER.BACKGROUNDPAGES.ShoppingListController
+);
 

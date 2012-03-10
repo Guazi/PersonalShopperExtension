@@ -5,7 +5,8 @@ PERSONALSHOPPER.REPOSITORIES = PERSONALSHOPPER.REPOSITORIES || {};
 
 
 PERSONALSHOPPER.SERVICES.shoppingListServiceClient = (function(serviceClient){
-    var serviceHostUrl = 'http://personalshopperservice.apphb.com'/*'http://localhost:9090'*/;
+    //var serviceHostUrl = 'http://personalshopperservice.apphb.com';
+    var serviceHostUrl = 'http://localhost:9090';
     return {
         addProductToList : function(productInfo, userName, listTypeId, callback){
             var postData = {
@@ -14,6 +15,10 @@ PERSONALSHOPPER.SERVICES.shoppingListServiceClient = (function(serviceClient){
                 listTypeId : listTypeId
             };
             serviceClient.asyncPostJson(serviceHostUrl + '/shoppinglist/addtoshoppinglist', 'put', postData, callback);
+        },
+        getUsersShoppingList : function(userName, callback){
+            var getUrl =   serviceHostUrl + '/shoppinglist/GetUsersShoppingList/' + userName;
+            serviceClient.asyncGet(getUrl, callback);
         }
-    }
+    };
 })(PERSONALSHOPPER.UTILITIES.serviceClient);

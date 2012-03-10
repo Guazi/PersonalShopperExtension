@@ -79,6 +79,10 @@ PERSONALSHOPPER.UTILITIES.serviceClient = (function(){
                 }
             };
             xhr.send(postBody);
+        },
+        isNullResponse : function(data){
+           var isNull = !data || data === 'null';
+           return isNull;
         }
     };
 })();
@@ -101,24 +105,26 @@ PERSONALSHOPPER.UTILITIES.viewEngine = (function(mustache){
     };
     return{
         render : render,
-        renderInElement : function(view, model, $element){
-            var rendered = render(view, model);
+        renderInElement : function(viewTemplate, model, $element){
+            var rendered = render(viewTemplate, model);
             debug.log(['populated html', rendered]);
             $element.html(rendered);
         }
     }
 })(Mustache);
 
-PERSONALSHOPPER.UTILITIES.events = (function($){
-    return {
+PERSONALSHOPPER.UTILITIES.Events = (function($){
+    var Constr = function($element){
+        this.$element = $element;
+    };
+    Constr.prototype = {
         // pattern taken from Javascript Web Applications
         bind : function(){
-            if(!this.o) this.o = $({});
-            this.o.bind.apply(this.o, arguments);
+            this.$element.bind.apply(this.$element, arguments);
         },
         trigger : function(){
-            if(!this.o) this.o  = $({});
-            this.o.trigger.apply(this.o, arguments);
+            this.$element.trigger.apply(this.$element, arguments);
         }
     };
+    return Constr;
 })(jQuery);
