@@ -33,6 +33,7 @@
   "browser_action": {
       "default_title": "Review your list.",
       "default_icon": "cart.png",
-      "popup": "ShoppingListPage/ShoppingList.html"
+      "default_popup": "ShoppingListPage/ShoppingList.html",
+      "default_title": "Review your cart"
   }
 }

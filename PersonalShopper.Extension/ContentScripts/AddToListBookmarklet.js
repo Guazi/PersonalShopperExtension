@@ -165,8 +165,8 @@ PERSONALSHOPPER.BOOKMARKLETS.addToListPrompter = (function(utilities){
 	};
 	Constr.prototype = {
 		constructor: PERSONALSHOPPER.BOOKMARKLETS.addToListPrompter,
-		promptToAddToList : function(openAddToListWindowFunction){
-			//alert(this.productTitle);
+		promptToAddToList : function(openAddToListWindowFunction{
+			//alert(this.productTitle);)
 			this.bookmarkletWrapper = utilities.createViewPortPoisitionedElement('div', 0, 0);
 			var promptSaveForLateButton = createPromptSaveForLaterButton (openAddToListWindowFunction);
 			this.bookmarkletWrapper.appendChild(promptSaveForLateButton);

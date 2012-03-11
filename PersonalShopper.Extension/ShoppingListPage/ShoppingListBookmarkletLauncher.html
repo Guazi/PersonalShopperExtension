@@ -1,0 +1,21 @@
+<html>
+<head>
+</head>
+<body>
+<script type="text/javascript" src="../jquery-1.7.1.js"></script>
+<script type="text/javascript" src="../Mustache.js"></script>
+<script type="text/javascript" src="../Utilities.js"></script>
+<script type="text/javascript" src="ShoppingCartContextService.js"></script>
+<script type="text/javascript" src="../ShoppingListServiceClient.js"></script>
+<script type="text/javascript" src="ShoppingListPage.js"></script>
+
+<script type="text/javascript">
+    $(function() {
+        // do something on document ready
+        var view = $('body');
+        var shoppingListPage = new PERSONALSHOPPER.BACKGROUNDPAGES.ShoppingListPage(view);
+        shoppingListPage.init();
+    });
+</script>
+</body>
+</html>
