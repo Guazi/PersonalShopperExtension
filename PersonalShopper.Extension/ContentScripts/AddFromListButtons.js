@@ -34,7 +34,7 @@ PERSONALSHOPPER.ADDFROMLIST.buttonTarget = (function () {
                 }
             }
         };
-    },
+    };
     return Constr;
 } ());
 

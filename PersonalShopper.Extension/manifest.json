@@ -2,7 +2,6 @@
   "name": "Personal Shopper",
   "version": "1.0",
   "description": "Let us help you shop.",
-  "background_page" : "AddFromListBackground.htm",
   "content_scripts" : [
     {
       "matches" : [
@@ -33,7 +32,7 @@
   "browser_action": {
       "default_title": "Review your list.",
       "default_icon": "cart.png",
-      "default_popup": "ShoppingListPage/ShoppingList.html",
+      "default_popup": "Background.html",
       "default_title": "Review your cart"
   }
 }

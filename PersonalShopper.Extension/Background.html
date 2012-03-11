@@ -1,0 +1,15 @@
+<html>
+<body>
+<script>
+    chrome.browserAction.onClicked.addListener(function(tab) {
+        chrome.tabs.executeScript(tab.id, {
+            file: "ContentScripts/injectShoppingListBookmarklet.js"  });
+    });
+</script>
+
+<script src="Utilities.js" type="text/javascript"></script>
+<script src="BackgroundScripts/ShoppingCartContextService.js" type="text/javascript"></script>
+<script src="BackgroundScripts/Background.js" type="text/javascript"></script>
+
+</body>
+</html>
