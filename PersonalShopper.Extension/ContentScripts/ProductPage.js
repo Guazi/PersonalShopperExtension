@@ -1,9 +1,9 @@
 var PERSONALSHOPPER = PERSONALSHOPPER || {};
-PERSONALSHOPPER.APPLICATION = PERSONALSHOPPER.APPLICATION || {};
+PERSONALSHOPPER.CONTENTSCRIPTS = PERSONALSHOPPER.CONTENTSCRIPTS || {};
 // global dependency
 var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
-PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector, addToListPrompter, addToListWindow, shoppingListServiceClient) {
+PERSONALSHOPPER.CONTENTSCRIPTS.productPage = (function (productPageDetector, addToListPrompter, addToListWindow, shoppingListServiceClient) {
     var trackAddToCartListTypeId = 0,
     writeFoundMatches = function (foundMatches) {
     	debug.log("matches:");
@@ -24,7 +24,6 @@ PERSONALSHOPPER.APPLICATION.productPageMediator = (function (productPageDetector
 		this.config = config;
 	};
 	Constr.prototype = {
-		constructor : PERSONALSHOPPER.APPLICATION.productPageMediator,
 		findButtons : function(){
 	        var addToCartMatches = productPageDetector.getAddToCartMatches(document.body);
 	        if(addToCartMatches.hasMatch()){

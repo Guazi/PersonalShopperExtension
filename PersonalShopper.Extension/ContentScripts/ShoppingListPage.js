@@ -1,9 +1,9 @@
 var PERSONALSHOPPER = PERSONALSHOPPER || {};
-PERSONALSHOPPER.BACKGROUNDPAGES = PERSONALSHOPPER.BACKGROUNDPAGES  || {};
+PERSONALSHOPPER.CONTROLLERS = PERSONALSHOPPER.CONTROLLERS  || {};
 // global dependency
 var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
-PERSONALSHOPPER.BACKGROUNDPAGES.UserInformationController = (function($, viewEngine, shoppingCartContextService){
+PERSONALSHOPPER.CONTROLLERS.UserInformationController = (function($, viewEngine, shoppingCartContextService){
     var models = {
         userInformation : function(userName){
             this.userName = userName;
@@ -62,7 +62,7 @@ PERSONALSHOPPER.BACKGROUNDPAGES.UserInformationController = (function($, viewEng
     PERSONALSHOPPER.UTILITIES.viewEngine,
     PERSONALSHOPPER.SERVICES.shoppingCartContextService);
 
-PERSONALSHOPPER.BACKGROUNDPAGES.ShoppingListController = (function($, viewEngine, shoppingListService){
+PERSONALSHOPPER.CONTROLLERS.ShoppingListController = (function($, viewEngine, shoppingListService){
     var models = {
     },
     viewTemplates = {
@@ -102,7 +102,7 @@ PERSONALSHOPPER.BACKGROUNDPAGES.ShoppingListController = (function($, viewEngine
     PERSONALSHOPPER.UTILITIES.viewEngine,
     PERSONALSHOPPER.SERVICES.shoppingListServiceClient);
 
-PERSONALSHOPPER.BACKGROUNDPAGES.ShoppingListPage = (function($, EventsConstr,
+PERSONALSHOPPER.CONTROLLERS.ShoppingListPage = (function($, EventsConstr,
                                                              userInformationControllerConstr,
                                                              shoppingListControllerConstr){
     var Constr = function($view){
@@ -128,7 +128,7 @@ PERSONALSHOPPER.BACKGROUNDPAGES.ShoppingListPage = (function($, EventsConstr,
     return Constr;
 })(jQuery,
     PERSONALSHOPPER.UTILITIES.Events,
-    PERSONALSHOPPER.BACKGROUNDPAGES.UserInformationController,
-    PERSONALSHOPPER.BACKGROUNDPAGES.ShoppingListController
+    PERSONALSHOPPER.CONTROLLERS.UserInformationController,
+    PERSONALSHOPPER.CONTROLLERS.ShoppingListController
 );
 
