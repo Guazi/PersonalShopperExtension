@@ -117,7 +117,7 @@ PERSONALSHOPPER.CONTROLLERS.ShoppingListPage = (function($, EventsConstr,
             this.events.bind('userNameSet', function(event, data){
                 self.userNameSet(data);
             });
-            this.userNameSet();
+            this.userNameSet(this.userInformationController.getUserName());
             //this.trigger('userNameSet'  );
         },
         userNameSet : function(userName){
