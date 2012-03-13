@@ -113,6 +113,27 @@ PERSONALSHOPPER.UTILITIES.viewEngine = (function(mustache){
     }
 })(Mustache);
 
+PERSONALSHOPPER.UTILITIES.eventBroker = (function(){
+    var eventsByName = [];
+    return {
+        bind : function(eventName, callback){
+            var eventsForName = eventsByName[eventName];
+            if(!eventsForName)
+                eventsForName = eventsByName[eventName] = [];
+            eventsForName.push(callback);
+            // todo: add to chrome global events?
+        },
+        fire : function(eventName, data){
+            var eventForName = eventsByName[eventName];
+            if(eventForName){
+                for(var i = 0, max = eventForName.length ; i < max; i++){
+                    eventForName[i](data);
+                }
+            }
+        }
+    }
+})();
+
 PERSONALSHOPPER.UTILITIES.Events = (function($){
     var Constr = function($element){
         this.$element = $element;

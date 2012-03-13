@@ -12,7 +12,7 @@ PERSONALSHOPPER.commands = (function(shoppingCartContextService){
         },
         names : {
             getUserName : 'getUserName',
-            setUserName : 'setUserName'
+            userNameSet : 'userNameSet'
         }
     };
 })(PERSONALSHOPPER.SERVICES.shoppingCartContextService);
@@ -23,7 +23,7 @@ PERSONALSHOPPER.commands = (function(shoppingCartContextService){
         function(request, sender, sendResponse) {
             if(request.command === commands.names.getUserName){
                 commands.getUserName(sendResponse);
-            } else if(request.command === commands.names.setUserName){
+            } else if(request.command === commands.names.userNameSet){
                 var userName = request.userName;
                 commands.setUserName(userName);
             }

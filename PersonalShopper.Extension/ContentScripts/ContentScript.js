@@ -23,21 +23,27 @@ PERSONALSHOPPER.CONTENTSCRIPTS.main = (function ($, productPageMediator, bookMar
         		mediator.detectAndNotifyIfProductPage();
         	}
         },
-        showShoppingList : function(){
+        showShoppingList : function(userName){
             debug.log('showing shopping list.');
-            bookMarklet.showShoppingList();
+            bookMarklet.showShoppingList(userName);
         }
     };
 })(jQuery, PERSONALSHOPPER.CONTENTSCRIPTS.productPage, PERSONALSHOPPER.CONTROLLERS.Bookmarklet);
 
-PERSONALSHOPPER.CONTENTSCRIPTS.main.init({trackAddToCartClicks: true, notifyIfProductPage: true});
-
-(function(main){
+// main program execution, through events
+(function(main, eventBroker){
+    main.init({trackAddToCartClicks: true, notifyIfProductPage: true});
+    // message passing from background page
     chrome.extension.onRequest.addListener(
         function(request, sender, sendResponse) {
             if(request.command == 'showShoppingList'){
-                main.showShoppingList();
+                main.showShoppingList(request.userName);
             }
         }
     );
-})(PERSONALSHOPPER.CONTENTSCRIPTS.main);
+    // message passing to background page
+    var userNameSetCommand = 'userNameSet';
+    eventBroker.bind(userNameSetCommand, function(userName){
+        chrome.extension.sendRequest({command: userNameSetCommand, userName : userName});
+    });
+})(PERSONALSHOPPER.CONTENTSCRIPTS.main, PERSONALSHOPPER.UTILITIES.eventBroker);
