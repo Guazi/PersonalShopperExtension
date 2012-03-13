@@ -15,13 +15,22 @@ PERSONALSHOPPER.CONTENTSCRIPTS.productPage = (function (productPageDetector, add
         debug.log(['tracking click of:',button]);
         var productInfo = productPageDetector.getProductInfoAroundAddToCartButton(button);
         if(productInfo){
-            shoppingListServiceClient.addProductToList(productInfo, 'stangogh2@gmail.com', trackAddToCartListTypeId, function(responseText){
-               debug.log(responseText);
+            getUserName(function(userName){
+                shoppingListServiceClient.addProductToList(productInfo, userName, trackAddToCartListTypeId, function(responseText){
+                    debug.log(responseText);
+                });
             });
         }
     },
+    getUserName = function(callback){
+        // send request back to get the username, and call showShoppingList with usernmae
+        chrome.extension.sendRequest({command: 'getUserName'}, function(userName){
+            callback(userName);
+        });
+    };
 	Constr = function(config){
 		this.config = config;
+        this.userName = null;
 	};
 	Constr.prototype = {
 		findButtons : function(){
