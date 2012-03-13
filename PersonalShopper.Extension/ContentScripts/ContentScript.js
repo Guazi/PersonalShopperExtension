@@ -37,7 +37,10 @@ PERSONALSHOPPER.CONTENTSCRIPTS.main = (function ($, productPageMediator, bookMar
     chrome.extension.onRequest.addListener(
         function(request, sender, sendResponse) {
             if(request.command == 'showShoppingList'){
-                main.showShoppingList(request.userName);
+                // send request back to get the username, and call showShoppingList with usernmae
+                chrome.extension.sendRequest({command: 'getUserName'}, function(userName){
+                    main.showShoppingList(userName);
+                });
             }
         }
     );

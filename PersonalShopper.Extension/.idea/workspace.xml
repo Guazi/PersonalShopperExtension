@@ -31,15 +31,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShoppingListPage.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ContentScripts/ShoppingListPage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="16" selection-start="2373" selection-end="2373" vertical-scroll-proportion="0.6437126">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ProductPage.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ContentScripts/ProductPage.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -61,7 +52,7 @@
       <file leaf-file-name="Bookmarklet.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ContentScripts/Bookmarklet.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="21" selection-start="624" selection-end="624" vertical-scroll-proportion="0.0">
+            <state line="30" column="44" selection-start="1266" selection-end="1274" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -70,16 +61,25 @@
       <file leaf-file-name="ShoppingList.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ShoppingListPage/ShoppingList.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="8" selection-start="51" selection-end="247" vertical-scroll-proportion="-1.9615384">
+            <state line="17" column="92" selection-start="760" selection-end="760" vertical-scroll-proportion="-11.115385">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ContentScript.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Background.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Background.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="14" selection-start="58" selection-end="58" vertical-scroll-proportion="-1.9615384">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContentScript.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ContentScripts/ContentScript.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="26" selection-start="1701" selection-end="1719" vertical-scroll-proportion="0.0">
+            <state line="41" column="42" selection-start="1794" selection-end="1794" vertical-scroll-proportion="0.6691617">
               <folding />
             </state>
           </provider>
@@ -97,7 +97,7 @@
       <file leaf-file-name="Background.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BackgroundScripts/Background.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="46" selection-start="714" selection-end="726" vertical-scroll-proportion="0.0">
+            <state line="5" column="19" selection-start="134" selection-end="145" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -133,12 +133,12 @@
         <option value="$PROJECT_DIR$/ContentScripts/AddToListBookmarklet.js" />
         <option value="$PROJECT_DIR$/ContentScripts/ProductPage.js" />
         <option value="$PROJECT_DIR$/manifest.json" />
-        <option value="$PROJECT_DIR$/Background.html" />
         <option value="$PROJECT_DIR$/Utilities.js" />
-        <option value="$PROJECT_DIR$/ContentScripts/ContentScript.js" />
         <option value="$PROJECT_DIR$/BackgroundScripts/Background.js" />
         <option value="$PROJECT_DIR$/ContentScripts/Bookmarklet.js" />
         <option value="$PROJECT_DIR$/ContentScripts/ShoppingListPage.js" />
+        <option value="$PROJECT_DIR$/Background.html" />
+        <option value="$PROJECT_DIR$/ContentScripts/ContentScript.js" />
       </list>
     </option>
   </component>
@@ -387,13 +387,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Background.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="68" selection-start="159" selection-end="175" vertical-scroll-proportion="-2.6153846">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ContentScripts/ProductService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="53" column="52" selection-start="1912" selection-end="1912" vertical-scroll-proportion="0.0">
@@ -408,13 +401,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShoppingListPage/ShoppingList.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="8" selection-start="51" selection-end="247" vertical-scroll-proportion="-1.9615384">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ContentScripts/AddFromListButtons.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="53" column="0" selection-start="1922" selection-end="1922" vertical-scroll-proportion="0.0">
@@ -422,16 +408,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ContentScripts/ContentScript.js">
+    <entry file="file://$PROJECT_DIR$/Utilities.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="26" selection-start="1701" selection-end="1719" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BackgroundScripts/Background.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="46" selection-start="714" selection-end="726" vertical-scroll-proportion="0.0">
+        <state line="123" column="48" selection-start="3841" selection-end="3841" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -450,23 +429,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Utilities.js">
+    <entry file="file://$PROJECT_DIR$/ShoppingListPage/ShoppingList.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="48" selection-start="3841" selection-end="3841" vertical-scroll-proportion="0.0">
+        <state line="17" column="92" selection-start="760" selection-end="760" vertical-scroll-proportion="-11.115385">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ContentScripts/Bookmarklet.js">
+    <entry file="file://$PROJECT_DIR$/Background.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="21" selection-start="624" selection-end="624" vertical-scroll-proportion="0.0">
+        <state line="3" column="14" selection-start="58" selection-end="58" vertical-scroll-proportion="-1.9615384">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BackgroundScripts/Background.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="19" selection-start="134" selection-end="145" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ContentScripts/ShoppingListPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="16" selection-start="2373" selection-end="2373" vertical-scroll-proportion="0.6437126">
+        <state line="107" column="34" selection-start="4545" selection-end="4545" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ContentScripts/Bookmarklet.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="44" selection-start="1266" selection-end="1274" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ContentScripts/ContentScript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="42" selection-start="1794" selection-end="1794" vertical-scroll-proportion="0.6691617">
           <folding />
         </state>
       </provider>
