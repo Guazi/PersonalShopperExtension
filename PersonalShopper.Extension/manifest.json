@@ -21,7 +21,7 @@
       "ShoppingListServiceClient.js",
       "ContentScripts/ProductPage.js",
       "ContentScripts/ShoppingListPage.js",
-      "ContentScripts/Bookmarklet.js",
+      "ContentScripts/Bookmarklets.js",
       "ContentScripts/ContentScript.js"],
       "run_at" : "document_idle",
       "all_frames" : false

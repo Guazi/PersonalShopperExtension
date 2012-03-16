@@ -100,8 +100,8 @@ PERSONALSHOPPER.UTILITIES.userStorage = (function(){
 })();
 
 PERSONALSHOPPER.UTILITIES.viewEngine = (function(mustache){
-    var render = function(view, model){
-        return mustache.render(view, model);
+    var render = function(view, model, partials){
+        return mustache.render(view, model, partials);
     };
     return{
         render : render,

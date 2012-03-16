@@ -3,12 +3,12 @@ PERSONALSHOPPER.CONTENTSCRIPTS = PERSONALSHOPPER.CONTENTSCRIPTS || {};
 // global dependency
 var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
-PERSONALSHOPPER.CONTENTSCRIPTS.main = (function ($, productPageMediator, bookMarkletConstr) {
-    var bookMarklet = null,
+PERSONALSHOPPER.CONTENTSCRIPTS.main = (function ($, productPageMediator, shoppingListConstr) {
+    var shoppingList = null,
     initBookMarklet = function(){
-        if(!bookMarklet){
+        if(!shoppingList){
             var $bookMarkletView = $(document.body);
-            bookMarklet = new bookMarkletConstr($bookMarkletView);
+            shoppingList = new shoppingListConstr($bookMarkletView);
         }
     };
     return {
@@ -25,10 +25,10 @@ PERSONALSHOPPER.CONTENTSCRIPTS.main = (function ($, productPageMediator, bookMar
         },
         showShoppingList : function(userName){
             debug.log('showing shopping list.');
-            bookMarklet.showShoppingList(userName);
+            shoppingList.showShoppingList(userName);
         }
     };
-})(jQuery, PERSONALSHOPPER.CONTENTSCRIPTS.productPage, PERSONALSHOPPER.CONTROLLERS.Bookmarklet);
+})(jQuery, PERSONALSHOPPER.CONTENTSCRIPTS.productPage, PERSONALSHOPPER.BOOKMARKLETS.ShoppingList);
 
 // main program execution, through events
 (function(main, eventBroker){
