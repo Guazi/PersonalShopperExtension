@@ -31,10 +31,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bookmarklets.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Bookmarklets.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ContentScripts/Bookmarklets.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="112" selection-end="112" vertical-scroll-proportion="0.0508982">
+            <state line="15" column="31" selection-start="763" selection-end="763" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -76,10 +76,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShoppingListPage.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="ShoppingListPage.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ContentScripts/ShoppingListPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="0" selection-start="4158" selection-end="4202" vertical-scroll-proportion="0.0">
+            <state line="66" column="56" selection-start="2922" selection-end="2922" vertical-scroll-proportion="0.5164671">
               <folding />
             </state>
           </provider>
@@ -106,7 +106,7 @@
       <file leaf-file-name="ShoppingListServiceClient.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ShoppingListServiceClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="4" selection-start="257" selection-end="257" vertical-scroll-proportion="0.0">
+            <state line="25" column="43" selection-start="1162" selection-end="1162" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -140,14 +140,14 @@
         <option value="$PROJECT_DIR$/ContentScripts/AddToListBookmarklet.js" />
         <option value="$PROJECT_DIR$/BackgroundScripts/Background.js" />
         <option value="$PROJECT_DIR$/ContentScripts/Bookmarklet.js" />
-        <option value="$PROJECT_DIR$/ContentScripts/ShoppingListPage.js" />
         <option value="$PROJECT_DIR$/Background.html" />
-        <option value="$PROJECT_DIR$/ShoppingListServiceClient.js" />
         <option value="$PROJECT_DIR$/ContentScripts/ProductPage.js" />
         <option value="$PROJECT_DIR$/manifest.json" />
         <option value="$PROJECT_DIR$/Utilities.js" />
         <option value="$PROJECT_DIR$/ContentScripts/ContentScript.js" />
         <option value="$PROJECT_DIR$/ContentScripts/Bookmarklets.js" />
+        <option value="$PROJECT_DIR$/ShoppingListServiceClient.js" />
+        <option value="$PROJECT_DIR$/ContentScripts/ShoppingListPage.js" />
       </list>
     </option>
   </component>
@@ -424,13 +424,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ShoppingListServiceClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="4" selection-start="257" selection-end="257" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ContentScripts/ProductService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="74" column="52" selection-start="2451" selection-end="2451" vertical-scroll-proportion="0.0">
@@ -466,20 +459,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ContentScripts/ContentScript.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="68" selection-start="498" selection-end="498" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ContentScripts/ShoppingListPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="0" selection-start="4158" selection-end="4202" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ContentScripts/ProductPage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="38" selection-start="1221" selection-end="1221" vertical-scroll-proportion="0.0">
@@ -487,9 +466,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ShoppingListServiceClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="43" selection-start="1162" selection-end="1162" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ContentScripts/ContentScript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="68" selection-start="498" selection-end="498" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ContentScripts/Bookmarklets.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="112" selection-end="112" vertical-scroll-proportion="0.0508982">
+        <state line="15" column="31" selection-start="763" selection-end="763" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ContentScripts/ShoppingListPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="56" selection-start="2922" selection-end="2922" vertical-scroll-proportion="0.5164671">
           <folding />
         </state>
       </provider>

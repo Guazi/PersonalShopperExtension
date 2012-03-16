@@ -64,12 +64,12 @@ PERSONALSHOPPER.CONTROLLERS.ShoppingListController = (function(viewEngine, shopp
     },
     viewTemplates = {
         noShoppingList : "<h2>No shopping list</h2>",
-        yourShoppingListOfUser : "<h2>Your shopping list:</h2><table>" +
-            "<th><td>Name</td><td>Added On</td></th>" +
+        yourShoppingListOfUser : "<h2>Your shopping list</h2>" +
+            "<ul>" +
             "{{#ShoppingListEntries}}<tr>" +
-            "<td>{{ProductName}}</td><td>{{AddedOn}}</td>" +
-            "</tr>{{/ShoppingListEntries}}" +
-            "</table>"
+            "<li>{{ProductName}}</li>" +
+            "{{/ShoppingListEntries}}" +
+            "</ul>"
     },
     renderEmtpyShoppingListView = function($view){
         viewEngine.renderInElement(viewTemplates.noShoppingList, null, $view);
