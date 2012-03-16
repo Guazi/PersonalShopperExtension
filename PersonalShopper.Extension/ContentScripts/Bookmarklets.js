@@ -4,7 +4,7 @@ PERSONALSHOPPER.BOOKMARKLETS = PERSONALSHOPPER.BOOKMARKLETS || {};
 PERSONALSHOPPER.BOOKMARKLETS.utilities = (function($, viewEngine){
     var viewTemplates = {
         bookMarkletWrapper : "<div style='position: absolute; z-index: 99999999'>" +
-            "<div style='position:relative; background-color: white; border: black; width: 200px;'>"+
+            "<div style='position:relative; background-color: white; border: black; width: 200px;' class='bodyContents'>"+
             "{{> bodyContents}}" +
             "</div>" +
             "</div>"
@@ -45,13 +45,14 @@ PERSONALSHOPPER.BOOKMARKLETS.ShoppingList = (function(utilities, shoppingListPag
     };
     Constr.prototype = {
         showShoppingList : function(userName){
-            if(!this.bookMarklet || !this.bookarkletRendered){
+            if(!this.bookMarklet || !this.bookMarkletRendered){
                 this.bookMarklet = utilities.generateBookmarkletInView(this.$view, viewTemplates.bookMarkletContents);
                 this.bookMarkletRendered = true;
+                var shoppingListView = $(this.bookMarklet);
+                this.shoppingListPage = new shoppingListPageConstr(shoppingListView);
+                this.shoppingListPage.init();
             }
-            var shoppingListView = $(this.bookMarklet);
-            this.shoppingListPage = new shoppingListPageConstr(shoppingListView);
-            this.shoppingListPage.init(userName);
+            this.shoppingListPage.setUserName(userName);
         }
     };
     return Constr;

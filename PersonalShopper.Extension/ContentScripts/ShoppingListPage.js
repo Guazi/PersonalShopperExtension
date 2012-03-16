@@ -64,7 +64,7 @@ PERSONALSHOPPER.CONTROLLERS.ShoppingListController = (function(viewEngine, shopp
     },
     viewTemplates = {
         noShoppingList : "<h2>No shopping list</h2>",
-        yourShoppingListOfUser : "<h2>Your shopping list</h2>" +
+        yourShoppingListOfUser : "<h2>Your Shopping List</h2>" +
             "<ul>" +
             "{{#ShoppingListEntries}}<tr>" +
             "<li>{{ProductName}}</li>" +
@@ -108,6 +108,8 @@ PERSONALSHOPPER.CONTROLLERS.ShoppingListPage = (function($, eventBroker,
         init : function(userName){
             this.userInformationController = new userInformationControllerConstr(this.$view);
             this.shoppingListController = new shoppingListControllerConstr(this.$view);
+        },
+        setUserName : function(userName){
             var self = this;
             eventBroker.bind('userNameSet', function(userName){
                 self.userNameSet(userName);
