@@ -1,6 +1,8 @@
 The Personal Shopper Extension is a chrome plugin that provides real time recommendations to users when shopping for products.
 
-<h2>MIT License</h2>
+License
+-------
+The MIT License
 
 Copyright (c) 2012 Dan Oved
 
