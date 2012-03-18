@@ -74,9 +74,6 @@ PERSONALSHOPPER.BOOKMARKLETS.SaveForLater = (function(utilities, SaveForLaterCon
         this.bookMarklet = null;
         this.bookMarkletRendered = false;
         var self = this;
-        eventBroker.bind('saveForLaterDesired', function(product){
-            self.openSaveForLater(product);
-        });
     };
     Constr.prototype = {
         constructor : PERSONALSHOPPER.BOOKMARKLETS.addToListWindow,

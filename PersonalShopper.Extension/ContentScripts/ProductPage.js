@@ -32,6 +32,10 @@ PERSONALSHOPPER.CONTENTSCRIPTS.ProductPage = (function (productPageDetector, sav
 		this.userName = null;
         this.saveForLaterPrompter = new saveForLaterPrompter($bookMarkletView);
         this.saveForLater = new saveForLater($bookMarkletView);
+        var self = this;
+        eventBroker.bind('saveForLaterDesired', function(product){
+            self.saveForLaterDesired(product);
+        });
 	};
 	Constr.prototype = {
 		findButtons : function(){
@@ -61,6 +65,9 @@ PERSONALSHOPPER.CONTENTSCRIPTS.ProductPage = (function (productPageDetector, sav
                         currentOnClick();
                 }
             }
+        },
+        saveForLaterDesired : function(product){
+            this.saveForLater.openSaveForLater(product);
         }
 	};
     return Constr;
