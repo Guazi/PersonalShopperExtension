@@ -105,7 +105,7 @@ PERSONALSHOPPER.CONTROLLERS.ShoppingListPage = (function($, eventBroker,
         this.$view = $view;
     };
     Constr.prototype = {
-        init : function(userName){
+        init : function(){
             this.userInformationController = new userInformationControllerConstr(this.$view);
             this.shoppingListController = new shoppingListControllerConstr(this.$view);
         },

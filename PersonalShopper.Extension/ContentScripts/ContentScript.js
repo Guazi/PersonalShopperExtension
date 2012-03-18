@@ -3,18 +3,19 @@ PERSONALSHOPPER.CONTENTSCRIPTS = PERSONALSHOPPER.CONTENTSCRIPTS || {};
 // global dependency
 var debug = debug || PERSONALSHOPPER.UTILITIES.debug;
 
-PERSONALSHOPPER.CONTENTSCRIPTS.main = (function ($, productPageMediator, shoppingListConstr) {
+PERSONALSHOPPER.CONTENTSCRIPTS.main = (function ($, ProductPage, shoppingListConstr) {
     var shoppingList = null,
     initBookMarklet = function(){
+        var $bookMarkletView = $(document.body);
         if(!shoppingList){
-            var $bookMarkletView = $(document.body);
             shoppingList = new shoppingListConstr($bookMarkletView);
         }
+        return $bookMarkletView;
     };
     return {
         init: function (config) {
-            initBookMarklet();
-        	var mediator = new productPageMediator({});
+            var $bookMarkletView = initBookMarklet();
+        	var mediator = new ProductPage($bookMarkletView);
             if(config.trackAddToCartClicks){
                 var addToCartMatches = mediator.findButtons();
                 mediator.trackAddToCartClicks(addToCartMatches.getElementMatches());
@@ -28,7 +29,7 @@ PERSONALSHOPPER.CONTENTSCRIPTS.main = (function ($, productPageMediator, shoppin
             shoppingList.showShoppingList(userName);
         }
     };
-})(jQuery, PERSONALSHOPPER.CONTENTSCRIPTS.productPage, PERSONALSHOPPER.BOOKMARKLETS.ShoppingList);
+})(jQuery, PERSONALSHOPPER.CONTENTSCRIPTS.ProductPage, PERSONALSHOPPER.BOOKMARKLETS.ShoppingList);
 
 // main program execution, through events
 (function(main, eventBroker){

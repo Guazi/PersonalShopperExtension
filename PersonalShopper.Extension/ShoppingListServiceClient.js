@@ -5,8 +5,8 @@ PERSONALSHOPPER.REPOSITORIES = PERSONALSHOPPER.REPOSITORIES || {};
 
 
 PERSONALSHOPPER.SERVICES.shoppingListServiceClient = (function(serviceClient){
-    //var serviceHostUrl = 'http://personalshopperservice.apphb.com';
-   var serviceHostUrl = 'http://localhost:9090';
+    var serviceHostUrl = 'http://personalshopperservice.apphb.com';
+   //var serviceHostUrl = 'http://localhost:9090';
     return {
         addProductToList : function(productInfo, userName, listTypeId, callback){
             var postData = {
