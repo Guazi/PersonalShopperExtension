@@ -96,7 +96,7 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities = (function(elementFinder)
 	};
 })(PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder);
 
-PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (function(productRetrievalUtilities, elementFinder, entities){	
+PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (function($, productRetrievalUtilities, elementFinder, entities){
 	var sizeRegex = /size/i,
     colorRegex = /color/i,
     getProductInfoAroundAddToCartButtons = function(existingProductInfo, addToButtonMatches){
@@ -111,7 +111,8 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (fu
             }
             var productName = productNameTextElement.nearestElementWithCondition.nodeValue;
             var productUrl = window.location.href;
-            var product = new entities.Product(null, productUrl, productName);
+            var productImages = findProductImages(view);
+            var product = new entities.Product(null, productUrl, productName, null, null, productImages);
             return product;
         }
         else
@@ -144,6 +145,23 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (fu
            debug.log(colorElement.parentNode);
        }
    },
+   minImageSqPixel = 20000,
+   findProductImages = function(view){
+       var productImages = [];
+        var $imageElements = $(view).find('img');
+        for(var i = 0; i < $imageElements.length; i++){
+            var imageElement = $imageElements[i];
+            var sqPixels = imageElement.width * imageElement.height;
+            if(sqPixels > minImageSqPixel){
+                var productImage = new entities.Image(imageElement.src,
+                    imageElement.width,
+                    imageElement.height,
+                    imageElement.alt);
+                productImages.push(productImage);
+            }
+        }
+       return productImages;
+   },
    findFirstTextElementThatMatchesSearchTerms = function(element, searchTerms){
    		var condition = function(nodeText){
    			var doesMatch = false;
@@ -165,7 +183,7 @@ PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductNearAddToCartButton = (fu
 		},
         getProductInfoAroundAddToCartButtons: getProductInfoAroundAddToCartButtons
 	};
-})(PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities, PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder, PERSONALSHOPPER.ENTITIES);
+})(jQuery, PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.utilities, PERSONALSHOPPER.CONTENTSCRIPTS.elementFinder, PERSONALSHOPPER.ENTITIES);
 
 PERSONALSHOPPER.STRATEGIES.PRODUCTRETRIEVAL.findProductBySearch = (function(utilities, productRetrieval){
 	var processProductResult = function(existingProduct, retrievedProduct){

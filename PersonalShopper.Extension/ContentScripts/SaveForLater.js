@@ -4,7 +4,10 @@ PERSONALSHOPPER.CONTROLLERS = PERSONALSHOPPER.CONTROLLERS  || {};
 PERSONALSHOPPER.CONTROLLERS.SaveForLater = (function(viewEngine){
     var viewTemplates = {
         productView : "<h2>Save for Later</h2>" +
-            "<h3>{{name}}</h3>",
+            "<h3>{{name}}</h3>" +
+            "<ul>{{#images}}" +
+            "<li><img src='{{src}}' /></li>" +
+            "{{/images}}</ul>",
         noProductView :
             "<h2>No Product Found on Page</h2>"
     },
